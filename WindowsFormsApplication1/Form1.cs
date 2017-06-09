@@ -38,7 +38,6 @@ namespace WindowsFormsApplication1
 
         eksek EX = new eksek();
 
-        MessageBox mb_embed;
         OpenFileDialog opfile;
         SaveFileDialog svfile;
         DialogResult dlg;
@@ -53,8 +52,6 @@ namespace WindowsFormsApplication1
                 getPathTeks = opfile.FileName;
                 pathenk.Text = getPathTeks;
                 msgenk.Text = File.ReadAllText(getPathTeks);
-                //System.Diagnostics.Debug.WriteLine(getPathTeks);
-
             }
         }
 
@@ -121,7 +118,6 @@ namespace WindowsFormsApplication1
             else
             {
                 ProsesEmbedding();
-                //ProsesConvertFiletoByte();
             }
         }
 
