@@ -30,10 +30,14 @@
         {
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.saveenk = new System.Windows.Forms.Button();
+            this.eksenk = new System.Windows.Forms.Button();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.msghslenk = new System.Windows.Forms.RichTextBox();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.msgenk = new System.Windows.Forms.RichTextBox();
             this.pathenk = new System.Windows.Forms.TextBox();
             this.loadenk = new System.Windows.Forms.Button();
-            this.eksenk = new System.Windows.Forms.Button();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.eksemb = new System.Windows.Forms.Button();
             this.passemb = new System.Windows.Forms.TextBox();
@@ -49,6 +53,10 @@
             this.pathext = new System.Windows.Forms.TextBox();
             this.tmplgbrext = new System.Windows.Forms.PictureBox();
             this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.savedek = new System.Windows.Forms.Button();
+            this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.msghsldek = new System.Windows.Forms.RichTextBox();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.msgdek = new System.Windows.Forms.RichTextBox();
             this.pathdek = new System.Windows.Forms.TextBox();
             this.loaddek = new System.Windows.Forms.Button();
@@ -58,28 +66,20 @@
             this.button10 = new System.Windows.Forms.Button();
             this.dataGridView2 = new System.Windows.Forms.DataGridView();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.msghslenk = new System.Windows.Forms.RichTextBox();
-            this.saveenk = new System.Windows.Forms.Button();
-            this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.groupBox4 = new System.Windows.Forms.GroupBox();
-            this.msghsldek = new System.Windows.Forms.RichTextBox();
-            this.savedek = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabPage3.SuspendLayout();
+            this.groupBox2.SuspendLayout();
+            this.groupBox1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tmplgbremb)).BeginInit();
             this.tabPage2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tmplgbrext)).BeginInit();
             this.tabPage4.SuspendLayout();
+            this.groupBox4.SuspendLayout();
+            this.groupBox3.SuspendLayout();
             this.tabPage5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
-            this.groupBox1.SuspendLayout();
-            this.groupBox2.SuspendLayout();
-            this.groupBox3.SuspendLayout();
-            this.groupBox4.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -110,6 +110,55 @@
             this.tabPage3.Text = "Enkripsi";
             this.tabPage3.UseVisualStyleBackColor = true;
             // 
+            // saveenk
+            // 
+            this.saveenk.Location = new System.Drawing.Point(546, 378);
+            this.saveenk.Name = "saveenk";
+            this.saveenk.Size = new System.Drawing.Size(161, 28);
+            this.saveenk.TabIndex = 6;
+            this.saveenk.Text = "Save As";
+            this.saveenk.UseVisualStyleBackColor = true;
+            this.saveenk.Click += new System.EventHandler(this.saveenk_Click);
+            // 
+            // eksenk
+            // 
+            this.eksenk.Location = new System.Drawing.Point(304, 262);
+            this.eksenk.Name = "eksenk";
+            this.eksenk.Size = new System.Drawing.Size(85, 72);
+            this.eksenk.TabIndex = 0;
+            this.eksenk.Text = "Execute";
+            this.eksenk.UseVisualStyleBackColor = true;
+            this.eksenk.Click += new System.EventHandler(this.eksenk_Click);
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.msghslenk);
+            this.groupBox2.Location = new System.Drawing.Point(411, 119);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(296, 224);
+            this.groupBox2.TabIndex = 5;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Teks Enkripsi";
+            // 
+            // msghslenk
+            // 
+            this.msghslenk.Location = new System.Drawing.Point(6, 37);
+            this.msghslenk.Name = "msghslenk";
+            this.msghslenk.ReadOnly = true;
+            this.msghslenk.Size = new System.Drawing.Size(284, 178);
+            this.msghslenk.TabIndex = 0;
+            this.msghslenk.Text = "";
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.msgenk);
+            this.groupBox1.Location = new System.Drawing.Point(12, 119);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(274, 224);
+            this.groupBox1.TabIndex = 4;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Teks Asli";
+            // 
             // msgenk
             // 
             this.msgenk.Location = new System.Drawing.Point(6, 37);
@@ -135,16 +184,6 @@
             this.loadenk.Text = "Open";
             this.loadenk.UseVisualStyleBackColor = true;
             this.loadenk.Click += new System.EventHandler(this.loadenk_Click);
-            // 
-            // eksenk
-            // 
-            this.eksenk.Location = new System.Drawing.Point(304, 262);
-            this.eksenk.Name = "eksenk";
-            this.eksenk.Size = new System.Drawing.Size(85, 72);
-            this.eksenk.TabIndex = 0;
-            this.eksenk.Text = "Execute";
-            this.eksenk.UseVisualStyleBackColor = true;
-            this.eksenk.Click += new System.EventHandler(this.eksenk_Click);
             // 
             // tabPage1
             // 
@@ -219,6 +258,7 @@
             // tmplgbremb
             // 
             this.tmplgbremb.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.tmplgbremb.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.tmplgbremb.Location = new System.Drawing.Point(23, 59);
             this.tmplgbremb.Name = "tmplgbremb";
             this.tmplgbremb.Size = new System.Drawing.Size(246, 285);
@@ -279,9 +319,10 @@
             // tmplgbrext
             // 
             this.tmplgbrext.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.tmplgbrext.Location = new System.Drawing.Point(75, 122);
+            this.tmplgbrext.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.tmplgbrext.Location = new System.Drawing.Point(21, 38);
             this.tmplgbrext.Name = "tmplgbrext";
-            this.tmplgbrext.Size = new System.Drawing.Size(207, 212);
+            this.tmplgbrext.Size = new System.Drawing.Size(261, 296);
             this.tmplgbrext.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.tmplgbrext.TabIndex = 0;
             this.tmplgbrext.TabStop = false;
@@ -300,6 +341,45 @@
             this.tabPage4.TabIndex = 3;
             this.tabPage4.Text = "Dekripsi";
             this.tabPage4.UseVisualStyleBackColor = true;
+            // 
+            // savedek
+            // 
+            this.savedek.Location = new System.Drawing.Point(574, 384);
+            this.savedek.Name = "savedek";
+            this.savedek.Size = new System.Drawing.Size(119, 23);
+            this.savedek.TabIndex = 6;
+            this.savedek.Text = "Save As";
+            this.savedek.UseVisualStyleBackColor = true;
+            this.savedek.Click += new System.EventHandler(this.savedek_Click);
+            // 
+            // groupBox4
+            // 
+            this.groupBox4.Controls.Add(this.msghsldek);
+            this.groupBox4.Location = new System.Drawing.Point(403, 119);
+            this.groupBox4.Name = "groupBox4";
+            this.groupBox4.Size = new System.Drawing.Size(290, 244);
+            this.groupBox4.TabIndex = 5;
+            this.groupBox4.TabStop = false;
+            this.groupBox4.Text = "Teks Dekripsi";
+            // 
+            // msghsldek
+            // 
+            this.msghsldek.Location = new System.Drawing.Point(6, 34);
+            this.msghsldek.Name = "msghsldek";
+            this.msghsldek.ReadOnly = true;
+            this.msghsldek.Size = new System.Drawing.Size(278, 200);
+            this.msghsldek.TabIndex = 0;
+            this.msghsldek.Text = "";
+            // 
+            // groupBox3
+            // 
+            this.groupBox3.Controls.Add(this.msgdek);
+            this.groupBox3.Location = new System.Drawing.Point(32, 119);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(264, 244);
+            this.groupBox3.TabIndex = 4;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "Teks Enkripsi";
             // 
             // msgdek
             // 
@@ -385,84 +465,6 @@
             this.dataGridView1.Size = new System.Drawing.Size(293, 191);
             this.dataGridView1.TabIndex = 0;
             // 
-            // groupBox1
-            // 
-            this.groupBox1.Controls.Add(this.msgenk);
-            this.groupBox1.Location = new System.Drawing.Point(12, 119);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(274, 224);
-            this.groupBox1.TabIndex = 4;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Teks Asli";
-            // 
-            // groupBox2
-            // 
-            this.groupBox2.Controls.Add(this.msghslenk);
-            this.groupBox2.Location = new System.Drawing.Point(411, 119);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(296, 224);
-            this.groupBox2.TabIndex = 5;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Teks Enkripsi";
-            // 
-            // msghslenk
-            // 
-            this.msghslenk.Location = new System.Drawing.Point(6, 37);
-            this.msghslenk.Name = "msghslenk";
-            this.msghslenk.ReadOnly = true;
-            this.msghslenk.Size = new System.Drawing.Size(284, 178);
-            this.msghslenk.TabIndex = 0;
-            this.msghslenk.Text = "";
-            // 
-            // saveenk
-            // 
-            this.saveenk.Location = new System.Drawing.Point(546, 378);
-            this.saveenk.Name = "saveenk";
-            this.saveenk.Size = new System.Drawing.Size(161, 28);
-            this.saveenk.TabIndex = 6;
-            this.saveenk.Text = "Save As";
-            this.saveenk.UseVisualStyleBackColor = true;
-            this.saveenk.Click += new System.EventHandler(this.saveenk_Click);
-            // 
-            // groupBox3
-            // 
-            this.groupBox3.Controls.Add(this.msgdek);
-            this.groupBox3.Location = new System.Drawing.Point(32, 119);
-            this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(264, 244);
-            this.groupBox3.TabIndex = 4;
-            this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "Teks Enkripsi";
-            // 
-            // groupBox4
-            // 
-            this.groupBox4.Controls.Add(this.msghsldek);
-            this.groupBox4.Location = new System.Drawing.Point(403, 119);
-            this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(290, 244);
-            this.groupBox4.TabIndex = 5;
-            this.groupBox4.TabStop = false;
-            this.groupBox4.Text = "Teks Dekripsi";
-            // 
-            // msghsldek
-            // 
-            this.msghsldek.Location = new System.Drawing.Point(6, 34);
-            this.msghsldek.Name = "msghsldek";
-            this.msghsldek.ReadOnly = true;
-            this.msghsldek.Size = new System.Drawing.Size(278, 200);
-            this.msghsldek.TabIndex = 0;
-            this.msghsldek.Text = "";
-            // 
-            // savedek
-            // 
-            this.savedek.Location = new System.Drawing.Point(574, 384);
-            this.savedek.Name = "savedek";
-            this.savedek.Size = new System.Drawing.Size(119, 23);
-            this.savedek.TabIndex = 6;
-            this.savedek.Text = "Save As";
-            this.savedek.UseVisualStyleBackColor = true;
-            this.savedek.Click += new System.EventHandler(this.savedek_Click);
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -477,6 +479,8 @@
             this.tabControl1.ResumeLayout(false);
             this.tabPage3.ResumeLayout(false);
             this.tabPage3.PerformLayout();
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tmplgbremb)).EndInit();
@@ -485,13 +489,11 @@
             ((System.ComponentModel.ISupportInitialize)(this.tmplgbrext)).EndInit();
             this.tabPage4.ResumeLayout(false);
             this.tabPage4.PerformLayout();
+            this.groupBox4.ResumeLayout(false);
+            this.groupBox3.ResumeLayout(false);
             this.tabPage5.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox2.ResumeLayout(false);
-            this.groupBox3.ResumeLayout(false);
-            this.groupBox4.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }

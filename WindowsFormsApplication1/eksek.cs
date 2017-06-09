@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.Runtime.InteropServices;
-
+using System.Windows.Media.Imaging;
 
 namespace WindowsFormsApplication1
 {
@@ -103,6 +103,8 @@ namespace WindowsFormsApplication1
             int bytes = strideCover * BmpCover.Height;
             byte[] rgbValue = new byte[bytes];
             Marshal.Copy(ptr, rgbValue, 0, bytes);
+
+            BitmapMetadata v = new BitmapMetadata();
 
             for (int i = 0; i < fileHide.Length; i++)
             {
