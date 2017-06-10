@@ -14,8 +14,11 @@ namespace WindowsFormsApplication1
     internal static class Notifikasi
     {
         public static readonly string InputNull = "Masih Terdapat Isian Yang Kosong !";
-        public static readonly string SaveSuccess = "Teks berhasil disimpan !";
+        public static readonly string SaveTxtSuccess = "Teks berhasil disimpan !";
         public static readonly string SaveImgSuccess = "Gambar Berhasil disimpan !";
+        public static readonly string Err_InputStego = "File Stego Image tidak Valid !";
+        public static readonly string Err_PasswdStego = "Password Stego Salah !";
+        public static readonly string Err_InputGambar = "Gambar Tidak didukung !";
         public static readonly string Title_Err = "Error";
         public static readonly string Title_Success = "Success";
         public static readonly string TXT = "Text Files (File Teks) |*.txt";
@@ -24,7 +27,12 @@ namespace WindowsFormsApplication1
     class eksek
     {
         public int[] dataReadMeta;
+        public int strideCover;
 
+        public byte[] passwd_rahasia;
+        public byte[] data_rahasia;
+
+        #region Proses Validasi Input
         public string Cek_Tbox_2Kolom(string pathExt, string passwd)
         {
             string val = String.Empty;
@@ -38,7 +46,6 @@ namespace WindowsFormsApplication1
             }
             return val;
         }
-
         public string Cek_Tbox_3Kolom(string pathCover, string pathHiddenFile, string passwd)
         {
             string val = String.Empty;
@@ -52,107 +59,35 @@ namespace WindowsFormsApplication1
             }
             return val;
         }
-
-        public string ProsesEnkripsi(string text_asli)
+        public string Cek_Gambar(string file)
         {
             string val = String.Empty;
-            val = text_asli;
+            Bitmap bmp = new Bitmap(file);
+            if (bmp.PixelFormat.ToString() == "Format32bppArgb")
+            {
+                val = "Valid";
+            }
+            else
+            {
+                val = "Invalid";
+            }
             return val;
         }
+        #endregion
 
-        public string ProsesDekripsi(string text_enkripsi)
+        #region Proses Manipulasi Gambar
+        public byte[] ProsesGetARGB(Bitmap bmp)
         {
-            string val = String.Empty;
-            val = text_enkripsi;
-            return val;
-        }
-
-        public char[] ProsesConvertPasswordtoByte(string passwd)
-        {
-            string pwd = string.Empty;
-            foreach (char x in passwd)
-            {
-                pwd += Convert.ToString(x, 2).PadLeft(8, '0');
-            }
-
-            char[] pwd_biner = pwd.ToCharArray();
-            return pwd_biner;
-        }
-
-        public char[] ProsesConvertFiletoByte(byte[] fileHideArray)
-        {         
-            String bin_string = String.Empty;
-            
-            foreach (byte x in fileHideArray)
-            {
-                bin_string += Convert.ToString(x, 2).PadLeft(8, '0');
-            }
-
-            char[] bin = bin_string.ToCharArray();
-            return bin;
-        }
-
-        public Bitmap ProsesStego(Bitmap BmpCover, char[] fileHide, char[] passwdCover)
-        {
-            Bitmap value;
-            Rectangle rect = new Rectangle(0, 0, BmpCover.Width, BmpCover.Height);
-            BitmapData bmpCoverData = BmpCover.LockBits(rect, ImageLockMode.ReadOnly, BmpCover.PixelFormat);
+            Rectangle rect = new Rectangle(0, 0, bmp.Width, bmp.Height);
+            BitmapData bmpCoverData = bmp.LockBits(rect, ImageLockMode.ReadOnly, bmp.PixelFormat);
             IntPtr ptr = bmpCoverData.Scan0;
-            int strideCover = Math.Abs(bmpCoverData.Stride);
-            int bytes = strideCover * BmpCover.Height;
-            byte[] rgbValue = new byte[bytes];
-            Marshal.Copy(ptr, rgbValue, 0, bytes);
+            strideCover = Math.Abs(bmpCoverData.Stride);
+            int bytes = strideCover * bmp.Height;
+            byte[] argbValue = new byte[bytes];
+            Marshal.Copy(ptr, argbValue, 0, bytes);
 
-
-            char[] allData = new char[fileHide.Length + passwdCover.Length];
-            Array.Copy(passwdCover, allData, passwdCover.Length);
-            Array.Copy(fileHide, 0, allData, passwdCover.Length, fileHide.Length);
-
-
-            for (int i = 0; i < allData.Length; i++)
-            {
-                if (allData[i] == 49 && ((byte)(rgbValue[i] % 2) == 1))
-                {
-                    rgbValue[i] = (byte)(rgbValue[i]);
-                }
-                if (allData[i] == 49 && ((byte)(rgbValue[i] % 2) == 0))
-                {
-                    rgbValue[i] = (byte)(rgbValue[i] + 1);
-                }
-                if (allData[i] == 48 && ((byte)(rgbValue[i] % 2) == 1))
-                {
-                    rgbValue[i] = (byte)(rgbValue[i] - 1);
-                }
-                if (allData[i] == 48 && ((byte)(rgbValue[i] % 2) == 0))
-                {
-                    rgbValue[i] = (byte)(rgbValue[i]);
-                }
-            }
-
-            value = new Bitmap(BmpCover.Width, BmpCover.Height, strideCover, BmpCover.PixelFormat, Marshal.UnsafeAddrOfPinnedArrayElement(rgbValue, 0));
-            
-                   
-            return value;
+            return argbValue;
         }
-
-        public void ProsesWriteMetadata(string filepath, Bitmap bmp, int passwdSize, int fileSize)
-        {
-            BitmapSource bmpSource;
-            BitmapMetadata meta;
-            PngBitmapEncoder enc = new PngBitmapEncoder();
-            
-            bmpSource = convertBitmap(bmp);
-            meta = new BitmapMetadata("png");
-            meta.SetQuery("/tEXt/{str=Description}", String.Format("{0}|{1}", passwdSize, fileSize));
-
-            enc.Frames.Add(BitmapFrame.Create(bmpSource, null, meta, null));
-
-            using (var stream = File.Create(filepath))
-            {
-                enc.Save(stream);
-            }
-        }
-
         public BitmapSource convertBitmap(Bitmap bitmap)
         {
             var bitmapData = bitmap.LockBits(
@@ -166,33 +101,197 @@ namespace WindowsFormsApplication1
             bitmap.UnlockBits(bitmapData);
             return bitmapSource;
         }
+        #endregion
+        
+        #region Proses Embed
+        public char[] ProsesConvertPassword_toBinary(string passwd)
+        {
+            string pwd = string.Empty;
+            foreach (char x in passwd)
+            {
+                pwd += Convert.ToString(x, 2).PadLeft(8, '0');
+            }
 
+            char[] pwd_biner = pwd.ToCharArray();
+            return pwd_biner;
+        }
+        public char[] ProsesConvertFile_toBinary(byte[] fileHideArray)
+        {         
+            String bin_string = String.Empty;
+            
+            foreach (byte x in fileHideArray)
+            {
+                bin_string += Convert.ToString(x, 2).PadLeft(8, '0');
+            }
 
+            char[] bin = bin_string.ToCharArray();
+            return bin;
+        }
+        public Bitmap ProsesStego(Bitmap bmp, byte[] argbValue, char[] fileHide, char[] passwdCover)
+        {
+            Bitmap value;
+            char[] allData = new char[fileHide.Length + passwdCover.Length];
+            Array.Copy(passwdCover, allData, passwdCover.Length);
+            Array.Copy(fileHide, 0, allData, passwdCover.Length, fileHide.Length);
 
-        public void ProsesReadMetadata(Bitmap bmpExtract)
+            for (int i = 0; i < allData.Length; i++)
+            {
+                if (allData[i] == 49 && ((byte)(argbValue[i] % 2) == 1))
+                {
+                    argbValue[i] = (byte)(argbValue[i]);
+                }
+                if (allData[i] == 49 && ((byte)(argbValue[i] % 2) == 0))
+                {
+                    argbValue[i] = (byte)(argbValue[i] + 1);
+                }
+                if (allData[i] == 48 && ((byte)(argbValue[i] % 2) == 1))
+                {
+                    argbValue[i] = (byte)(argbValue[i] - 1);
+                }
+                if (allData[i] == 48 && ((byte)(argbValue[i] % 2) == 0))
+                {
+                    argbValue[i] = (byte)(argbValue[i]);
+                }
+            }
+
+            value = new Bitmap(bmp.Width, bmp.Height, strideCover, bmp.PixelFormat, Marshal.UnsafeAddrOfPinnedArrayElement(argbValue, 0));
+            return value;
+        }
+        public void ProsesWriteMetadata(string filepath, Bitmap bmp, int passwdSize, int fileSize)
+        {
+            BitmapSource bmpSource;
+            BitmapMetadata meta;
+            PngBitmapEncoder enc = new PngBitmapEncoder();
+
+            bmpSource = convertBitmap(bmp);
+            meta = new BitmapMetadata("png");
+            meta.SetQuery("/tEXt/{str=Description}", String.Format("{0}|{1}", passwdSize, fileSize));
+
+            enc.Frames.Add(BitmapFrame.Create(bmpSource, null, meta, null));
+
+            using (var stream = File.Create(filepath))
+            {
+                enc.Save(stream);
+            }
+        }
+        #endregion
+
+        #region Proses Extract
+        public byte[] ProsesConvertPasswd_toByte(string passwd)
+        {
+            string msg = string.Empty;
+            foreach (char x in passwd)
+            {
+                msg += Convert.ToString(x, 2).PadLeft(8, '0');
+            }
+            int num = msg.Length / 8;
+            byte[] passwd_Byte = new byte[num];
+            for (int i = 0; i < num; ++i)
+            {
+                passwd_Byte[i] = Convert.ToByte(msg.Substring(8 * i, 8), 2);
+            }
+            return passwd_Byte;
+        }
+        public string ProsesCheckStegoValid(Bitmap bmpExtract)
         {
             MemoryStream memoryStream = new MemoryStream();
+            InPlaceBitmapMetadataWriter meta;
+            PngBitmapDecoder pngDecoder;
+            BitmapFrame pngFrame;
+            string metaVal;
+            string val;
+
             bmpExtract.Save(memoryStream, System.Drawing.Imaging.ImageFormat.Png);
-
-            PngBitmapDecoder pngDecoder = new PngBitmapDecoder(memoryStream,BitmapCreateOptions.PreservePixelFormat,BitmapCacheOption.Default);
-            BitmapFrame pngFrame = pngDecoder.Frames[0];
-            InPlaceBitmapMetadataWriter pngInplace = pngFrame.CreateInPlaceBitmapMetadataWriter();
-            memoryStream.Close();
+            pngDecoder = new PngBitmapDecoder(memoryStream,BitmapCreateOptions.PreservePixelFormat,BitmapCacheOption.Default);
+            pngFrame = pngDecoder.Frames[0];
+            meta = pngFrame.CreateInPlaceBitmapMetadataWriter();
             
-            string val = (string)pngInplace.GetQuery("/tEXt/{str=Description}");
-            string[] sVal = val.Split('|');
-            dataReadMeta = new int[sVal.Length];
-            int xx = -1;
-            foreach (var x in sVal)
+            metaVal = (String)meta.GetQuery("/tEXt/{str=Description}");
+
+            if (metaVal != null)
             {
-                dataReadMeta[++xx] = int.Parse(x);
+                val = "Valid";
+                string[] sVal = metaVal.Split('|');
+                dataReadMeta = new int[sVal.Length];
+                int xx = -1;
+                foreach (var x in sVal)
+                {
+                    dataReadMeta[++xx] = int.Parse(x);
+                }
             }
 
-            foreach (var f in dataReadMeta)
+            else
             {
-                System.Diagnostics.Debug.WriteLine(f);
+                val = "Invalid";
             }
-           
+
+            memoryStream.Close();
+            return val;
+        }
+        public string ProsesCheckStegoPasswd(byte[] argbStego, byte[]passwd)
+        {
+            string value = String.Empty;
+            string Steg_String;
+            char[] Steg_Char = new char[argbStego.Length];            
+
+            //LSB Data
+            for (int i = 0; i < argbStego.Length; i++)
+            {
+                if (argbStego[i] % 2 == 0)
+                {
+                    Steg_Char[i] = (char)48;
+                }
+                else
+                {
+                    Steg_Char[i] = (char)49;
+                }
+            }
+
+            //LSB data to Byte
+            Steg_String = new string(Steg_Char);
+
+            int num = Steg_String.Length / 8;
+            byte[] fileSteg_Byte = new byte[num];
+            for (int i = 0; i < num; ++i)
+            {
+                fileSteg_Byte[i] = Convert.ToByte(Steg_String.Substring(8 * i, 8), 2);
+            }
+
+            //Inizialize Array Data
+            passwd_rahasia = new byte[dataReadMeta[0] / 8];
+            data_rahasia = new byte[dataReadMeta[1] / 8];
+
+            //Spliting LSB Value to Array Byte
+            Array.Copy(fileSteg_Byte, 0, passwd_rahasia, 0, dataReadMeta[0] / 8);
+            Array.Copy(fileSteg_Byte, (dataReadMeta[0] / 8), data_rahasia, 0, dataReadMeta[1] / 8);
+
+            //Check Password Encrypt is Same
+            if (passwd_rahasia.SequenceEqual(passwd) == true)
+            {
+                value = "Correct";
+            }
+            else
+            {
+                value = "Incorrect";
+            }
+
+            return value;
+
+        }
+        #endregion
+
+        public string ProsesEnkripsi(string text_asli)
+        {
+            string val = String.Empty;
+            val = text_asli;
+            return val;
+        }
+
+        public string ProsesDekripsi(string text_enkripsi)
+        {
+            string val = String.Empty;
+            val = text_enkripsi;
+            return val;
         }
 
 

@@ -43,7 +43,7 @@ namespace WindowsFormsApplication1
         SaveFileDialog svfile;
         DialogResult dlg;
 
-        #region Enkripsi
+        #region Proses Enkripsi
         private void loadenk_Click(object sender, EventArgs e)
         {
             opfile = new OpenFileDialog();
@@ -70,7 +70,7 @@ namespace WindowsFormsApplication1
                 if (svfile.ShowDialog() == DialogResult.OK)
                 {
                     File.WriteAllText(svfile.FileName, msghslenk.Text);
-                    dlg = MessageBox.Show(Notifikasi.SaveSuccess, Notifikasi.Title_Success, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    dlg = MessageBox.Show(Notifikasi.SaveTxtSuccess, Notifikasi.Title_Success, MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
         }             
@@ -90,7 +90,7 @@ namespace WindowsFormsApplication1
         }
         #endregion
 
-        #region Embed
+        #region Proses Embed
         private void loademb1_Click(object sender, EventArgs e)
         {
             opfile = new OpenFileDialog();
@@ -122,12 +122,19 @@ namespace WindowsFormsApplication1
             }
             else
             {
-                ProsesEmbedding();
+                if (EX.Cek_Gambar(pathemb1.Text) == "Invalid")
+                {
+                    dlg = MessageBox.Show(Notifikasi.Err_InputGambar, Notifikasi.Title_Err, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                else
+                {
+                    ProsesEmbedding();
+                }
             }
         }
         #endregion
 
-        #region Extract
+        #region Proses Extract
         private void loadext_Click(object sender, EventArgs e)
         {
             opfile = new OpenFileDialog();
@@ -155,7 +162,7 @@ namespace WindowsFormsApplication1
         }
         #endregion
 
-        #region Dekripsi
+        #region Proses Dekripsi
         private void loaddek_Click(object sender, EventArgs e)
         {
             opfile = new OpenFileDialog();
@@ -188,23 +195,24 @@ namespace WindowsFormsApplication1
             if (svfile.ShowDialog() == DialogResult.OK)
             {
                 File.WriteAllText(svfile.FileName, msghsldek.Text);
-                dlg = MessageBox.Show(Notifikasi.SaveSuccess, Notifikasi.Title_Success, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                dlg = MessageBox.Show(Notifikasi.SaveTxtSuccess, Notifikasi.Title_Success, MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
         #endregion
 
-        #region Process Function
+        #region Fungsi-Fungsi
         void ProsesEmbedding()
         {
             Bitmap bmpCover = new Bitmap(pathemb1.Text);
             Bitmap bmpCoverEditPixel;
             char[] passwd_biner;
             char[] fileHide_biner;
+            byte[] argbVal;
 
-            passwd_biner = EX.ProsesConvertFiletoByte(System.IO.File.ReadAllBytes(pathemb2.Text));
-            fileHide_biner = EX.ProsesConvertPasswordtoByte(passemb.Text);
-
-            bmpCoverEditPixel = EX.ProsesStego(bmpCover, fileHide_biner, passwd_biner);
+            fileHide_biner = EX.ProsesConvertFile_toBinary(System.IO.File.ReadAllBytes(pathemb2.Text));
+            passwd_biner = EX.ProsesConvertPassword_toBinary(passemb.Text);
+            argbVal = EX.ProsesGetARGB(bmpCover);
+            bmpCoverEditPixel = EX.ProsesStego(bmpCover, argbVal, fileHide_biner, passwd_biner);
 
             svfile = new SaveFileDialog();
             svfile.Filter = Notifikasi.PNG;
@@ -212,19 +220,37 @@ namespace WindowsFormsApplication1
             if (svfile.ShowDialog() == DialogResult.OK)
             {
                 EX.ProsesWriteMetadata(svfile.FileName, bmpCoverEditPixel, passwd_biner.Length, fileHide_biner.Length);
-                dlg = MessageBox.Show(Notifikasi.SaveImgSuccess, Notifikasi.Title_Success, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                dlg = MessageBox.Show(Notifikasi.SaveImgSuccess, Notifikasi.Title_Success, MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
-        }        
-
-
+        }
         void ProsesExtract()
         {
-           // Bitmap BmpExtract = new Bitmap(pathext.Text);
             Bitmap bmp = new Bitmap(pathext.Text);
-            EX.ProsesReadMetadata(bmp);
-
+            if (EX.ProsesCheckStegoValid(bmp) == "Invalid")
+            {
+                dlg = MessageBox.Show(Notifikasi.Err_InputStego, Notifikasi.Title_Err, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            else
+            {
+                byte[] passwd_Byte = EX.ProsesConvertPasswd_toByte(passext.Text);
+                byte[] bmp_Byte = EX.ProsesGetARGB(bmp);
+                if (EX.ProsesCheckStegoPasswd(bmp_Byte, passwd_Byte) == "Incorrect")
+                {
+                    dlg = MessageBox.Show(Notifikasi.Err_PasswdStego, Notifikasi.Title_Err, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                else
+                {
+                    svfile = new SaveFileDialog();
+                    svfile.Filter = Notifikasi.TXT;
+                    svfile.RestoreDirectory = true;
+                    if (svfile.ShowDialog() == DialogResult.OK)
+                    {
+                        File.WriteAllBytes(svfile.FileName, EX.data_rahasia);
+                        dlg = MessageBox.Show(Notifikasi.SaveTxtSuccess, Notifikasi.Title_Success, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                }
+            }
         }
-
         #endregion
 
 
