@@ -320,9 +320,9 @@
             // 
             this.tmplgbrext.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.tmplgbrext.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.tmplgbrext.Location = new System.Drawing.Point(21, 38);
+            this.tmplgbrext.Location = new System.Drawing.Point(29, 62);
             this.tmplgbrext.Name = "tmplgbrext";
-            this.tmplgbrext.Size = new System.Drawing.Size(261, 296);
+            this.tmplgbrext.Size = new System.Drawing.Size(246, 285);
             this.tmplgbrext.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.tmplgbrext.TabIndex = 0;
             this.tmplgbrext.TabStop = false;
