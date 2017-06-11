@@ -31,8 +31,8 @@
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
-            this.tbox_priv = new System.Windows.Forms.TextBox();
-            this.tbox_pub = new System.Windows.Forms.TextBox();
+            this.tbox_pri_enk = new System.Windows.Forms.TextBox();
+            this.tbox_pub_enk = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.saveenk = new System.Windows.Forms.Button();
@@ -58,6 +58,11 @@
             this.pathext = new System.Windows.Forms.TextBox();
             this.tmplgbrext = new System.Windows.Forms.PictureBox();
             this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.groupBox6 = new System.Windows.Forms.GroupBox();
+            this.tbox_pri_dek = new System.Windows.Forms.TextBox();
+            this.tbox_pub_dek = new System.Windows.Forms.TextBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
             this.savedek = new System.Windows.Forms.Button();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.msghsldek = new System.Windows.Forms.RichTextBox();
@@ -81,6 +86,7 @@
             this.tabPage2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tmplgbrext)).BeginInit();
             this.tabPage4.SuspendLayout();
+            this.groupBox6.SuspendLayout();
             this.groupBox4.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.tabPage5.SuspendLayout();
@@ -119,8 +125,8 @@
             // 
             // groupBox5
             // 
-            this.groupBox5.Controls.Add(this.tbox_priv);
-            this.groupBox5.Controls.Add(this.tbox_pub);
+            this.groupBox5.Controls.Add(this.tbox_pri_enk);
+            this.groupBox5.Controls.Add(this.tbox_pub_enk);
             this.groupBox5.Controls.Add(this.label2);
             this.groupBox5.Controls.Add(this.label1);
             this.groupBox5.Location = new System.Drawing.Point(12, 349);
@@ -130,19 +136,19 @@
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "Kunci Publik dan Privat";
             // 
-            // tbox_priv
+            // tbox_pri_enk
             // 
-            this.tbox_priv.Location = new System.Drawing.Point(249, 25);
-            this.tbox_priv.Name = "tbox_priv";
-            this.tbox_priv.Size = new System.Drawing.Size(38, 20);
-            this.tbox_priv.TabIndex = 3;
+            this.tbox_pri_enk.Location = new System.Drawing.Point(249, 25);
+            this.tbox_pri_enk.Name = "tbox_pri_enk";
+            this.tbox_pri_enk.Size = new System.Drawing.Size(38, 20);
+            this.tbox_pri_enk.TabIndex = 3;
             // 
-            // tbox_pub
+            // tbox_pub_enk
             // 
-            this.tbox_pub.Location = new System.Drawing.Point(98, 26);
-            this.tbox_pub.Name = "tbox_pub";
-            this.tbox_pub.Size = new System.Drawing.Size(38, 20);
-            this.tbox_pub.TabIndex = 2;
+            this.tbox_pub_enk.Location = new System.Drawing.Point(98, 26);
+            this.tbox_pub_enk.Name = "tbox_pub_enk";
+            this.tbox_pub_enk.Size = new System.Drawing.Size(38, 20);
+            this.tbox_pub_enk.TabIndex = 2;
             // 
             // label2
             // 
@@ -221,7 +227,7 @@
             // 
             // pathenk
             // 
-            this.pathenk.Location = new System.Drawing.Point(18, 75);
+            this.pathenk.Location = new System.Drawing.Point(18, 78);
             this.pathenk.Name = "pathenk";
             this.pathenk.ReadOnly = true;
             this.pathenk.Size = new System.Drawing.Size(602, 20);
@@ -229,7 +235,7 @@
             // 
             // loadenk
             // 
-            this.loadenk.Location = new System.Drawing.Point(626, 75);
+            this.loadenk.Location = new System.Drawing.Point(632, 78);
             this.loadenk.Name = "loadenk";
             this.loadenk.Size = new System.Drawing.Size(75, 23);
             this.loadenk.TabIndex = 1;
@@ -381,6 +387,7 @@
             // 
             // tabPage4
             // 
+            this.tabPage4.Controls.Add(this.groupBox6);
             this.tabPage4.Controls.Add(this.savedek);
             this.tabPage4.Controls.Add(this.groupBox4);
             this.tabPage4.Controls.Add(this.groupBox3);
@@ -394,11 +401,56 @@
             this.tabPage4.Text = "Dekripsi";
             this.tabPage4.UseVisualStyleBackColor = true;
             // 
+            // groupBox6
+            // 
+            this.groupBox6.Controls.Add(this.tbox_pri_dek);
+            this.groupBox6.Controls.Add(this.tbox_pub_dek);
+            this.groupBox6.Controls.Add(this.label3);
+            this.groupBox6.Controls.Add(this.label4);
+            this.groupBox6.Location = new System.Drawing.Point(32, 354);
+            this.groupBox6.Name = "groupBox6";
+            this.groupBox6.Size = new System.Drawing.Size(322, 63);
+            this.groupBox6.TabIndex = 8;
+            this.groupBox6.TabStop = false;
+            this.groupBox6.Text = "Kunci Publik dan Privat";
+            // 
+            // tbox_pri_dek
+            // 
+            this.tbox_pri_dek.Location = new System.Drawing.Point(249, 25);
+            this.tbox_pri_dek.Name = "tbox_pri_dek";
+            this.tbox_pri_dek.Size = new System.Drawing.Size(38, 20);
+            this.tbox_pri_dek.TabIndex = 3;
+            // 
+            // tbox_pub_dek
+            // 
+            this.tbox_pub_dek.Location = new System.Drawing.Point(98, 26);
+            this.tbox_pub_dek.Name = "tbox_pub_dek";
+            this.tbox_pub_dek.Size = new System.Drawing.Size(38, 20);
+            this.tbox_pub_dek.TabIndex = 2;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(157, 28);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(86, 13);
+            this.label3.TabIndex = 1;
+            this.label3.Text = "Kunci Privat (X) :";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(8, 29);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(88, 13);
+            this.label4.TabIndex = 0;
+            this.label4.Text = "Kunci Publik (P) :";
+            // 
             // savedek
             // 
-            this.savedek.Location = new System.Drawing.Point(574, 384);
+            this.savedek.Location = new System.Drawing.Point(538, 354);
             this.savedek.Name = "savedek";
-            this.savedek.Size = new System.Drawing.Size(119, 23);
+            this.savedek.Size = new System.Drawing.Size(155, 63);
             this.savedek.TabIndex = 6;
             this.savedek.Text = "Save As";
             this.savedek.UseVisualStyleBackColor = true;
@@ -407,52 +459,52 @@
             // groupBox4
             // 
             this.groupBox4.Controls.Add(this.msghsldek);
-            this.groupBox4.Location = new System.Drawing.Point(403, 119);
+            this.groupBox4.Location = new System.Drawing.Point(366, 106);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(290, 244);
+            this.groupBox4.Size = new System.Drawing.Size(327, 224);
             this.groupBox4.TabIndex = 5;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Teks Dekripsi";
             // 
             // msghsldek
             // 
-            this.msghsldek.Location = new System.Drawing.Point(6, 34);
+            this.msghsldek.Location = new System.Drawing.Point(6, 18);
             this.msghsldek.Name = "msghsldek";
             this.msghsldek.ReadOnly = true;
-            this.msghsldek.Size = new System.Drawing.Size(278, 200);
+            this.msghsldek.Size = new System.Drawing.Size(315, 200);
             this.msghsldek.TabIndex = 0;
             this.msghsldek.Text = "";
             // 
             // groupBox3
             // 
             this.groupBox3.Controls.Add(this.msgdek);
-            this.groupBox3.Location = new System.Drawing.Point(32, 119);
+            this.groupBox3.Location = new System.Drawing.Point(32, 106);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(264, 244);
+            this.groupBox3.Size = new System.Drawing.Size(322, 224);
             this.groupBox3.TabIndex = 4;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Teks Enkripsi";
             // 
             // msgdek
             // 
-            this.msgdek.Location = new System.Drawing.Point(6, 34);
+            this.msgdek.Location = new System.Drawing.Point(6, 18);
             this.msgdek.Name = "msgdek";
             this.msgdek.ReadOnly = true;
-            this.msgdek.Size = new System.Drawing.Size(253, 200);
+            this.msgdek.Size = new System.Drawing.Size(310, 200);
             this.msgdek.TabIndex = 3;
             this.msgdek.Text = "";
             // 
             // pathdek
             // 
-            this.pathdek.Location = new System.Drawing.Point(93, 61);
+            this.pathdek.Location = new System.Drawing.Point(32, 61);
             this.pathdek.Name = "pathdek";
             this.pathdek.ReadOnly = true;
-            this.pathdek.Size = new System.Drawing.Size(475, 20);
+            this.pathdek.Size = new System.Drawing.Size(580, 20);
             this.pathdek.TabIndex = 2;
             // 
             // loaddek
             // 
-            this.loaddek.Location = new System.Drawing.Point(574, 61);
+            this.loaddek.Location = new System.Drawing.Point(618, 61);
             this.loaddek.Name = "loaddek";
             this.loaddek.Size = new System.Drawing.Size(75, 23);
             this.loaddek.TabIndex = 1;
@@ -462,9 +514,9 @@
             // 
             // eksdek
             // 
-            this.eksdek.Location = new System.Drawing.Point(312, 275);
+            this.eksdek.Location = new System.Drawing.Point(366, 354);
             this.eksdek.Name = "eksdek";
-            this.eksdek.Size = new System.Drawing.Size(72, 78);
+            this.eksdek.Size = new System.Drawing.Size(156, 63);
             this.eksdek.TabIndex = 0;
             this.eksdek.Text = "Execute";
             this.eksdek.UseVisualStyleBackColor = true;
@@ -527,7 +579,7 @@
             this.MaximizeBox = false;
             this.Name = "Form1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Aplikasi";
+            this.Text = "Aplikasi Steganografi & Enkripsi ElGamal";
             this.tabControl1.ResumeLayout(false);
             this.tabPage3.ResumeLayout(false);
             this.tabPage3.PerformLayout();
@@ -543,6 +595,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.tmplgbrext)).EndInit();
             this.tabPage4.ResumeLayout(false);
             this.tabPage4.PerformLayout();
+            this.groupBox6.ResumeLayout(false);
+            this.groupBox6.PerformLayout();
             this.groupBox4.ResumeLayout(false);
             this.groupBox3.ResumeLayout(false);
             this.tabPage5.ResumeLayout(false);
@@ -593,10 +647,15 @@
         private System.Windows.Forms.RichTextBox msghsldek;
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.GroupBox groupBox5;
-        private System.Windows.Forms.TextBox tbox_priv;
-        private System.Windows.Forms.TextBox tbox_pub;
+        private System.Windows.Forms.TextBox tbox_pri_enk;
+        private System.Windows.Forms.TextBox tbox_pub_enk;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.GroupBox groupBox6;
+        private System.Windows.Forms.TextBox tbox_pri_dek;
+        private System.Windows.Forms.TextBox tbox_pub_dek;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label4;
     }
 }
 

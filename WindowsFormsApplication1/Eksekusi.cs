@@ -311,9 +311,12 @@ namespace WindowsFormsApplication1
             return hasil_enkripsi;
         }
 
-        public void ProsesDekripsi()
+        public string ProsesDekripsi(string msg, int nilaiP, int nilaiX)
         {
-
+            string hasil_dekripsi;
+            EL.Split_Cipher_Gamma_Delta(msg);
+            hasil_dekripsi = EL.Proses_Get_Message(EL.gamma_cipher, EL.delta_cipher, nilaiP, nilaiX);
+            return hasil_dekripsi;
         }
 
 

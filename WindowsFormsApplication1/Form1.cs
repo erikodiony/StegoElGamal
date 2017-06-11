@@ -68,9 +68,10 @@ namespace WindowsFormsApplication1
                 svfile = new SaveFileDialog();
                 svfile.Filter = Notifikasi.TXT;
                 svfile.RestoreDirectory = true;
+                svfile.FileName = String.Format("Enkripsi_{0}_{1}_{2}", DateTime.Now.ToString("dd-M-yyyy"), tbox_pub_enk.Text, tbox_pri_enk.Text);
                 if (svfile.ShowDialog() == DialogResult.OK)
                 {
-                    File.WriteAllText(svfile.FileName, msghslenk.Text);
+                    File.WriteAllLines(svfile.FileName, msghslenk.Lines);
                     dlg = MessageBox.Show(Notifikasi.SaveTxtSuccess, Notifikasi.Title_Success, MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
@@ -84,7 +85,7 @@ namespace WindowsFormsApplication1
             }
             else
             {
-                if (tbox_pub.Text == String.Empty || tbox_priv.Text == String.Empty)
+                if (tbox_pub_enk.Text == String.Empty || tbox_pri_enk.Text == String.Empty)
                 {
                     dlg = MessageBox.Show(Notifikasi.InputNull, Notifikasi.Title_Err, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 }
@@ -173,7 +174,7 @@ namespace WindowsFormsApplication1
         private void loaddek_Click(object sender, EventArgs e)
         {
             opfile = new OpenFileDialog();
-            opfile.Filter = " Teks File (CFiles Teks) |*.txt";
+            opfile.Filter = Notifikasi.TXT;
             if (opfile.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
                 getPathTeks2 = opfile.FileName;
@@ -190,7 +191,14 @@ namespace WindowsFormsApplication1
             }
             else
             {
-                
+                if (tbox_pub_dek.Text == String.Empty || tbox_pri_dek.Text == String.Empty)
+                {
+                    dlg = MessageBox.Show(Notifikasi.InputNull, Notifikasi.Title_Err, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                }
+                else
+                {
+                    ProsesValidasi_Dekripsi();
+                }
             }
         }
         private void savedek_Click(object sender, EventArgs e)
@@ -198,9 +206,10 @@ namespace WindowsFormsApplication1
             svfile = new SaveFileDialog();
             svfile.Filter = Notifikasi.TXT;
             svfile.RestoreDirectory = true;
+            svfile.FileName = String.Format("Dekripsi_{0}_{1}_{2}", DateTime.Now.ToString("dd-M-yyyy"), tbox_pub_dek.Text, tbox_pri_dek.Text);
             if (svfile.ShowDialog() == DialogResult.OK)
             {
-                File.WriteAllText(svfile.FileName, msghsldek.Text);
+                File.WriteAllLines(svfile.FileName, msghsldek.Lines);
                 dlg = MessageBox.Show(Notifikasi.SaveTxtSuccess, Notifikasi.Title_Success, MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
@@ -260,23 +269,44 @@ namespace WindowsFormsApplication1
         void ProsesValidasi_Enkripsi()
         {
 
-            if (int.Parse(tbox_pub.Text) < 255)
+            if (int.Parse(tbox_pub_enk.Text) < 255)
             {
                 dlg = MessageBox.Show(Notifikasi.Err_InputKunci_Publik, Notifikasi.Title_Err, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
-            else if (EL.cekPrima(tbox_pub.Text) == false)
+            else if (EL.cekPrima(tbox_pub_enk.Text) == false)
             {
                 dlg = MessageBox.Show(Notifikasi.Err_InputKunci_Publik2, Notifikasi.Title_Err, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
-            else if (int.Parse(tbox_priv.Text) < 1 | int.Parse(tbox_priv.Text) >= int.Parse(tbox_pub.Text) - 2)
+            else if (int.Parse(tbox_pri_enk.Text) < 1 | int.Parse(tbox_pri_enk.Text) >= int.Parse(tbox_pub_enk.Text) - 2)
             {
                 dlg = MessageBox.Show(Notifikasi.Err_InputKunci_Privat, Notifikasi.Title_Err, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
             else
             {
-                ProsesTampilEnkripsi(EX.ProsesEnkripsi(msgenk.Text, int.Parse(tbox_pub.Text), int.Parse(tbox_priv.Text)));
+                ProsesTampilEnkripsi(EX.ProsesEnkripsi(msgenk.Text, int.Parse(tbox_pub_enk.Text), int.Parse(tbox_pri_enk.Text)));
             }
 
+        }
+
+        void ProsesValidasi_Dekripsi()
+        {
+            if (int.Parse(tbox_pub_dek.Text) < 255)
+            {
+                dlg = MessageBox.Show(Notifikasi.Err_InputKunci_Publik, Notifikasi.Title_Err, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
+            else if (EL.cekPrima(tbox_pub_dek.Text) == false)
+            {
+                dlg = MessageBox.Show(Notifikasi.Err_InputKunci_Publik2, Notifikasi.Title_Err, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
+            else if (int.Parse(tbox_pri_dek.Text) < 1 | int.Parse(tbox_pri_dek.Text) >= int.Parse(tbox_pub_dek.Text) - 2)
+            {
+                dlg = MessageBox.Show(Notifikasi.Err_InputKunci_Privat, Notifikasi.Title_Err, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
+            else
+            {
+                hasil_dekripsi = EX.ProsesDekripsi(msgdek.Text, int.Parse(tbox_pub_dek.Text), int.Parse(tbox_pri_dek.Text));
+                msghsldek.Text = hasil_dekripsi;
+            }
         }
 
         void ProsesTampilEnkripsi(string[] enkripsi)
@@ -287,7 +317,8 @@ namespace WindowsFormsApplication1
                 builder.Append(x);
                 builder.Append(" ");
             }
-            msghslenk.Text = builder.ToString();
+            hasil_enkripsi = builder.ToString();
+            msghslenk.Text = hasil_enkripsi;
         }
 
         #endregion

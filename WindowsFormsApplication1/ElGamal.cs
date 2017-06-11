@@ -8,6 +8,7 @@ namespace WindowsFormsApplication1
 {
     class ElGamal
     {
+        #region Proses Cek Input
         public bool cekPrima(string angka)
         {
             int prima = int.Parse(angka);
@@ -25,7 +26,9 @@ namespace WindowsFormsApplication1
             }
             return true; 
         }
+        #endregion
 
+        #region Proses Enkripsi
         public int[] SplitPesan_ASCII(string msg)
         {
             //ASCII adalah sama dengan Konversi ke Byte
@@ -93,18 +96,54 @@ namespace WindowsFormsApplication1
                 val[++count] = delta[i].ToString();
                 ++count;
             }
-
-            foreach (var f in gamma)
-            {
-                System.Diagnostics.Debug.WriteLine(f);
-            }
-
-            foreach (var f in delta)
-            {
-                System.Diagnostics.Debug.WriteLine(f);
-            }
             return val;
         }
+        #endregion
+
+        #region Proses Dekripsi
+        public List<int> gamma_cipher = new List<int>();
+        public List<int> delta_cipher = new List<int>();           
+
+        public void Split_Cipher_Gamma_Delta(string msg)
+        {
+            string[] msg_arr;
+            msg_arr = msg.Split(' ');
+            Array.Resize(ref msg_arr, msg_arr.Length - 1); //Hapus "Spasi" pada akhir Array;
+
+            for (int i = 0; i < msg_arr.Length; i++)
+            {
+                if (i % 2 == 0)
+                {
+                    gamma_cipher.Add(int.Parse(msg_arr[i]));
+                }
+                else
+                {
+                    delta_cipher.Add(int.Parse(msg_arr[i]));
+                }
+            }            
+        }
+
+        public string Proses_Get_Message(List<int> gamma_list, List<int> delta_list, int p, int x)
+        {
+            int[] gamma = gamma_list.ToArray();
+            int[] delta = delta_list.ToArray();
+            byte[] val_byte = new byte[gamma.Length];
+            string val;
+
+            for (int i = 0; i < gamma.Length; i++)
+            {
+                val_byte[i] = (byte)((delta[i] * (BigInteger.Pow((BigInteger)gamma[i], (int)(p - 1 - x)))) % p);
+            }
+
+            foreach(var c in val_byte)
+            {
+                System.Diagnostics.Debug.WriteLine(c);
+            }
+
+            val = System.Text.Encoding.ASCII.GetString(val_byte);
+            return val;
+        }
+        #endregion
 
 
     }
