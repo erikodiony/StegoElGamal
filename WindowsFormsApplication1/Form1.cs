@@ -37,7 +37,8 @@ namespace WindowsFormsApplication1
         string hasil_enkripsi;
         string hasil_dekripsi;
 
-        eksek EX = new eksek();
+        Eksekusi EX = new Eksekusi();
+        ElGamal EL = new ElGamal();
 
         OpenFileDialog opfile;
         SaveFileDialog svfile;
@@ -83,8 +84,14 @@ namespace WindowsFormsApplication1
             }
             else
             {
-                hasil_enkripsi = EX.ProsesEnkripsi(msgenk.Text);
-                msghslenk.Text = hasil_enkripsi;
+                if (tbox_pub.Text == String.Empty || tbox_priv.Text == String.Empty)
+                {
+                    dlg = MessageBox.Show(Notifikasi.InputNull, Notifikasi.Title_Err, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                }
+                else
+                {
+                    ProsesValidasi_Enkripsi();
+                }
             }
 
         }
@@ -183,8 +190,7 @@ namespace WindowsFormsApplication1
             }
             else
             {
-                hasil_dekripsi = EX.ProsesDekripsi(msgdek.Text);
-                msghsldek.Text = hasil_dekripsi;
+                
             }
         }
         private void savedek_Click(object sender, EventArgs e)
@@ -250,6 +256,50 @@ namespace WindowsFormsApplication1
                     }
                 }
             }
+        }
+        void ProsesValidasi_Enkripsi()
+        {
+
+            if (int.Parse(tbox_pub.Text) < 255)
+            {
+                dlg = MessageBox.Show(Notifikasi.Err_InputKunci_Publik, Notifikasi.Title_Err, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
+            else if (EL.cekPrima(tbox_pub.Text) == false)
+            {
+                dlg = MessageBox.Show(Notifikasi.Err_InputKunci_Publik2, Notifikasi.Title_Err, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
+            else if (int.Parse(tbox_priv.Text) < 1 | int.Parse(tbox_priv.Text) >= int.Parse(tbox_pub.Text) - 2)
+            {
+                dlg = MessageBox.Show(Notifikasi.Err_InputKunci_Privat, Notifikasi.Title_Err, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
+            else
+            {
+                ProsesTampilEnkripsi(EX.ProsesEnkripsi(msgenk.Text, int.Parse(tbox_pub.Text), int.Parse(tbox_priv.Text)));
+            }
+
+        }
+
+        void ProsesTampilEnkripsi(string[] enkripsi)
+        {
+            StringBuilder builder = new StringBuilder();
+            foreach (var x in enkripsi)
+            {
+                builder.Append(x);
+                builder.Append(" ");
+            }
+            msghslenk.Text = builder.ToString();
+        }
+
+        #endregion
+
+        #region Event Handler Tbox
+        private void tbox_pub_KeyPress(object sender, KeyPressEventArgs e)
+        {
+
+        }
+        private void tbox_priv_KeyPress(object sender, KeyPressEventArgs e)
+        {
+
         }
         #endregion
 

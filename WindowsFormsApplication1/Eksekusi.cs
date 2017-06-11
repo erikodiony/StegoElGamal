@@ -8,6 +8,7 @@ using System.Drawing.Imaging;
 using System.Runtime.InteropServices;
 using System.Windows.Media.Imaging;
 using System.IO;
+using System.Numerics;
 
 namespace WindowsFormsApplication1
 {
@@ -19,13 +20,18 @@ namespace WindowsFormsApplication1
         public static readonly string Err_InputStego = "File Stego Image tidak Valid !";
         public static readonly string Err_PasswdStego = "Password Stego Salah !";
         public static readonly string Err_InputGambar = "Gambar Tidak didukung !";
+        public static readonly string Err_InputKunci_Publik = "Nilai (P) Harus > 255 !";
+        public static readonly string Err_InputKunci_Publik2 = "Nilai (P) bukan Bilangan Prima !";
+        public static readonly string Err_InputKunci_Privat = "Nilai (X) harus memenuhi (1 < x <= p-2) !";
         public static readonly string Title_Err = "Error";
         public static readonly string Title_Success = "Success";
         public static readonly string TXT = "Text Files (File Teks) |*.txt";
         public static readonly string PNG = "Image Files (Cover Image) |*.png";        
     }
-    class eksek
+    class Eksekusi
     {
+        ElGamal EL = new ElGamal();
+
         public int[] dataReadMeta;
         public int strideCover;
 
@@ -280,18 +286,34 @@ namespace WindowsFormsApplication1
         }
         #endregion
 
-        public string ProsesEnkripsi(string text_asli)
+        public string[] ProsesEnkripsi(string msg, int nilaiP, int nilaiX)
         {
-            string val = String.Empty;
-            val = text_asli;
-            return val;
+            int nilai_P = nilaiP;
+            int nilai_X = nilaiX;
+            int nilai_G;
+            int nilai_Y;
+            int[] nilai_K;
+            int[] msg_ascii;
+            int[] hasil_gamma;
+            int[] hasil_delta;
+            string[] hasil_enkripsi;
+
+            nilai_G = EL.GetNilai_G(nilaiP);
+            nilai_Y = EL.GetNilai_Y(nilai_P, nilai_G, nilai_X);
+            nilai_K = EL.GetNilai_K(msg, nilai_P);
+            
+            msg_ascii = EL.SplitPesan_ASCII(msg);
+            
+            hasil_gamma = EL.GetNilai_Gamma(nilai_G, nilai_K, nilai_P);
+            hasil_delta = EL.GetNilai_Delta(nilai_Y, nilai_K, nilai_P, msg_ascii);
+            hasil_enkripsi = EL.Gabungan_NilaiGamma_NilaiDelta(hasil_gamma, hasil_delta);
+
+            return hasil_enkripsi;
         }
 
-        public string ProsesDekripsi(string text_enkripsi)
+        public void ProsesDekripsi()
         {
-            string val = String.Empty;
-            val = text_enkripsi;
-            return val;
+
         }
 
 

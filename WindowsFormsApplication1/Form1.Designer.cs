@@ -30,6 +30,11 @@
         {
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.tbox_priv = new System.Windows.Forms.TextBox();
+            this.tbox_pub = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
             this.saveenk = new System.Windows.Forms.Button();
             this.eksenk = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
@@ -68,6 +73,7 @@
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.tabControl1.SuspendLayout();
             this.tabPage3.SuspendLayout();
+            this.groupBox5.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -97,6 +103,7 @@
             // 
             // tabPage3
             // 
+            this.tabPage3.Controls.Add(this.groupBox5);
             this.tabPage3.Controls.Add(this.saveenk);
             this.tabPage3.Controls.Add(this.eksenk);
             this.tabPage3.Controls.Add(this.groupBox2);
@@ -110,11 +117,56 @@
             this.tabPage3.Text = "Enkripsi";
             this.tabPage3.UseVisualStyleBackColor = true;
             // 
+            // groupBox5
+            // 
+            this.groupBox5.Controls.Add(this.tbox_priv);
+            this.groupBox5.Controls.Add(this.tbox_pub);
+            this.groupBox5.Controls.Add(this.label2);
+            this.groupBox5.Controls.Add(this.label1);
+            this.groupBox5.Location = new System.Drawing.Point(12, 349);
+            this.groupBox5.Name = "groupBox5";
+            this.groupBox5.Size = new System.Drawing.Size(322, 63);
+            this.groupBox5.TabIndex = 7;
+            this.groupBox5.TabStop = false;
+            this.groupBox5.Text = "Kunci Publik dan Privat";
+            // 
+            // tbox_priv
+            // 
+            this.tbox_priv.Location = new System.Drawing.Point(249, 25);
+            this.tbox_priv.Name = "tbox_priv";
+            this.tbox_priv.Size = new System.Drawing.Size(38, 20);
+            this.tbox_priv.TabIndex = 3;
+            // 
+            // tbox_pub
+            // 
+            this.tbox_pub.Location = new System.Drawing.Point(98, 26);
+            this.tbox_pub.Name = "tbox_pub";
+            this.tbox_pub.Size = new System.Drawing.Size(38, 20);
+            this.tbox_pub.TabIndex = 2;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(157, 28);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(86, 13);
+            this.label2.TabIndex = 1;
+            this.label2.Text = "Kunci Privat (X) :";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(8, 29);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(88, 13);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "Kunci Publik (P) :";
+            // 
             // saveenk
             // 
-            this.saveenk.Location = new System.Drawing.Point(546, 378);
+            this.saveenk.Location = new System.Drawing.Point(546, 352);
             this.saveenk.Name = "saveenk";
-            this.saveenk.Size = new System.Drawing.Size(161, 28);
+            this.saveenk.Size = new System.Drawing.Size(161, 60);
             this.saveenk.TabIndex = 6;
             this.saveenk.Text = "Save As";
             this.saveenk.UseVisualStyleBackColor = true;
@@ -122,9 +174,9 @@
             // 
             // eksenk
             // 
-            this.eksenk.Location = new System.Drawing.Point(304, 262);
+            this.eksenk.Location = new System.Drawing.Point(380, 352);
             this.eksenk.Name = "eksenk";
-            this.eksenk.Size = new System.Drawing.Size(85, 72);
+            this.eksenk.Size = new System.Drawing.Size(149, 60);
             this.eksenk.TabIndex = 0;
             this.eksenk.Text = "Execute";
             this.eksenk.UseVisualStyleBackColor = true;
@@ -133,19 +185,19 @@
             // groupBox2
             // 
             this.groupBox2.Controls.Add(this.msghslenk);
-            this.groupBox2.Location = new System.Drawing.Point(411, 119);
+            this.groupBox2.Location = new System.Drawing.Point(380, 119);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(296, 224);
+            this.groupBox2.Size = new System.Drawing.Size(327, 224);
             this.groupBox2.TabIndex = 5;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Teks Enkripsi";
             // 
             // msghslenk
             // 
-            this.msghslenk.Location = new System.Drawing.Point(6, 37);
+            this.msghslenk.Location = new System.Drawing.Point(6, 19);
             this.msghslenk.Name = "msghslenk";
             this.msghslenk.ReadOnly = true;
-            this.msghslenk.Size = new System.Drawing.Size(284, 178);
+            this.msghslenk.Size = new System.Drawing.Size(315, 196);
             this.msghslenk.TabIndex = 0;
             this.msghslenk.Text = "";
             // 
@@ -154,16 +206,16 @@
             this.groupBox1.Controls.Add(this.msgenk);
             this.groupBox1.Location = new System.Drawing.Point(12, 119);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(274, 224);
+            this.groupBox1.Size = new System.Drawing.Size(322, 224);
             this.groupBox1.TabIndex = 4;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Teks Asli";
             // 
             // msgenk
             // 
-            this.msgenk.Location = new System.Drawing.Point(6, 37);
+            this.msgenk.Location = new System.Drawing.Point(6, 19);
             this.msgenk.Name = "msgenk";
-            this.msgenk.Size = new System.Drawing.Size(255, 178);
+            this.msgenk.Size = new System.Drawing.Size(310, 196);
             this.msgenk.TabIndex = 3;
             this.msgenk.Text = "";
             // 
@@ -479,6 +531,8 @@
             this.tabControl1.ResumeLayout(false);
             this.tabPage3.ResumeLayout(false);
             this.tabPage3.PerformLayout();
+            this.groupBox5.ResumeLayout(false);
+            this.groupBox5.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
@@ -538,6 +592,11 @@
         private System.Windows.Forms.GroupBox groupBox4;
         private System.Windows.Forms.RichTextBox msghsldek;
         private System.Windows.Forms.GroupBox groupBox3;
+        private System.Windows.Forms.GroupBox groupBox5;
+        private System.Windows.Forms.TextBox tbox_priv;
+        private System.Windows.Forms.TextBox tbox_pub;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label1;
     }
 }
 
