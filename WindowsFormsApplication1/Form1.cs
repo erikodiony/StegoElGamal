@@ -37,6 +37,11 @@ namespace WindowsFormsApplication1
         string hasil_enkripsi;
         string hasil_dekripsi;
 
+        int bmpCoverW;
+        int bmpCoverH;
+        int bmpStegoW;
+        int bmpStegoH;
+
         Eksekusi EX = new Eksekusi();
         ElGamal EL = new ElGamal();
 
@@ -217,6 +222,72 @@ namespace WindowsFormsApplication1
         }
         #endregion
 
+        #region Proses Pixel Lookup
+        public List<BGRA_Cover> data_cover = new List<BGRA_Cover>();
+        public List<BGRA_Stego> data_stego = new List<BGRA_Stego>();
+
+        private void btn_cover_Click(object sender, EventArgs e)
+        {
+            Bitmap bmp_Cover;
+            opfile = new OpenFileDialog();
+            opfile.Filter = Notifikasi.PNG;
+            if (opfile.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                tbox_path_cover.Text = opfile.FileName;
+                bmp_Cover = new Bitmap(opfile.FileName);
+                ProsesTampilDataGrid_Cover(opfile.FileName, bmp_Cover);
+            }
+        }
+        private void btn_stego_Click(object sender, EventArgs e)
+        {
+            Bitmap bmp_Stego;
+            opfile = new OpenFileDialog();
+            opfile.Filter = Notifikasi.PNG;
+            if (opfile.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                tbox_path_stego.Text = opfile.FileName;
+                bmp_Stego = new Bitmap(opfile.FileName);
+                ProsesTampilDataGrid_Stego(opfile.FileName, bmp_Stego);
+            }
+        }
+        private void btn_TampilPixel_Click(object sender, EventArgs e)
+        {
+            if (tbox_X.Text != String.Empty || tbox_Y.Text != String.Empty)
+            {
+                int Xval = int.Parse(tbox_X.Text);
+                int Yval = int.Parse(tbox_Y.Text);
+                if (Xval <= 0 || Xval > bmpCoverW || Xval > bmpStegoW)
+                {
+                    dlg = MessageBox.Show(Notifikasi.Err_Input_Xval, Notifikasi.Title_Err, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                else if (Yval <= 0 || Yval > bmpCoverH || Yval > bmpStegoH)
+                {
+                    dlg = MessageBox.Show(Notifikasi.Err_Input_Yval, Notifikasi.Title_Err, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                else
+                {
+                    int stride_cover = bmpCoverW * 4;
+                    int stride_stego = bmpStegoW * 4;
+                    Bitmap bmpCover = new Bitmap(tbox_path_cover.Text);
+                    Bitmap bmpStego = new Bitmap(tbox_path_stego.Text);
+
+                    byte[] argb_cover = EX.ProsesGetARGB(bmpCover);
+                    byte[] argb_stego = EX.ProsesGetARGB(bmpStego);
+
+                    System.Diagnostics.Debug.WriteLine(stride_cover);
+                    System.Diagnostics.Debug.WriteLine(stride_stego);
+
+                    ProsesTitikXY(Xval, Yval, argb_cover, argb_stego, stride_cover, stride_stego);
+
+                }
+            }
+            else
+            {
+                dlg = MessageBox.Show(Notifikasi.InputNull, Notifikasi.Title_Err, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
+        }
+        #endregion
+
         #region Fungsi-Fungsi
         void ProsesEmbedding()
         {
@@ -320,6 +391,108 @@ namespace WindowsFormsApplication1
             hasil_enkripsi = builder.ToString();
             msghslenk.Text = hasil_enkripsi;
         }
+        void ProsesTampilDataGrid_Cover(string path, Bitmap bmp)
+        {
+            byte[] argb;
+            argb = EX.ProsesGetARGB(bmp);
+            EX.SplitArgbPixel(argb, bmp);
+
+            bmpCoverW = bmp.Width;
+            bmpCoverH = bmp.Height;
+
+            label_sampel_cover.Text = String.Format("Sampel Data : 100 dari {0}", EX.nilai_xy.Length);
+            label_dimensi_cover.Text = String.Format("Gambar Cover : ({0} X {1})", bmpCoverW, bmpCoverH);
+
+            data_cover.Clear(); //Reset
+
+            for (int i = 0; i < 100; i++)
+            {
+                data_cover.Add(new BGRA_Cover() { XY_Cover = EX.nilai_xy[i], B_Cover = EX.nilai_b[i].ToString(), G_Cover = EX.nilai_g[i].ToString(), R_Cover = EX.nilai_r[i].ToString(), A_Cover = EX.nilai_a[i].ToString() });
+            }
+            ResetDatagrid_Cover();
+        }
+        void ProsesTampilDataGrid_Stego(string path, Bitmap bmp)
+        {
+            byte[] argb;
+            argb = EX.ProsesGetARGB(bmp);
+            EX.SplitArgbPixel(argb, bmp);
+            
+            bmpStegoW = bmp.Width;
+            bmpStegoH = bmp.Height;
+
+            label_sampel_stego.Text = String.Format("Sampel Data : 100 dari {0}", EX.nilai_xy.Length);
+            label_dimensi_stego.Text = String.Format("Gambar Cover : ({0} X {1})", bmpStegoW, bmpStegoH);
+
+            data_stego.Clear(); //Reset
+
+            for (int i = 0; i < 100; i++)
+            {
+                data_stego.Add(new BGRA_Stego() { XY_Stego = EX.nilai_xy[i], B_Stego = EX.nilai_b[i].ToString(), G_Stego = EX.nilai_g[i].ToString(), R_Stego = EX.nilai_r[i].ToString(), A_Stego = EX.nilai_a[i].ToString() });
+            }
+            ResetDatagrid_Stego();
+        }
+        void ProsesTitikXY(int PointX, int PointY, byte[] pixel_cover, byte[] pixel_stego, int stride_cover, int stride_stego)
+        {
+            int index_cover = (PointY - 1) * stride_cover + 4 * (PointX - 1); //-1 for array index
+            byte blue_cover = pixel_cover[index_cover];
+            byte green_cover = pixel_cover[index_cover + 1];
+            byte red_cover = pixel_cover[index_cover + 2];
+            byte alpha_cover = pixel_cover[index_cover + 3];
+            data_cover.Clear();
+            data_cover.Add(new BGRA_Cover() { XY_Cover = String.Format("({0},{1})", PointX.ToString(), PointY.ToString()), B_Cover = blue_cover.ToString(), G_Cover = green_cover.ToString(), R_Cover = red_cover.ToString(), A_Cover = alpha_cover.ToString() });
+            ResetDatagrid_Cover();
+
+            int index_stego = (PointY - 1) * stride_stego + 4 * (PointX - 1); //-1 for array index
+            byte blue_stego = pixel_stego[index_stego];
+            byte green_stego = pixel_stego[index_stego + 1];
+            byte red_stego = pixel_stego[index_stego + 2];
+            byte alpha_stego = pixel_stego[index_stego + 3];
+            data_stego.Clear();
+            data_stego.Add(new BGRA_Stego() { XY_Stego = String.Format("({0},{1})", PointX.ToString(), PointY.ToString()), B_Stego = blue_stego.ToString(), G_Stego = green_stego.ToString(), R_Stego = red_stego.ToString(), A_Stego = alpha_stego.ToString() });
+            ResetDatagrid_Stego();
+        }
+        void ResetDatagrid_Cover()
+        {
+            dGV_cover.DataSource = null; //Reset
+
+            dGV_cover.DataSource = data_cover;
+            dGV_cover.Columns[0].HeaderText = "(X,Y)";
+            dGV_cover.Columns[1].HeaderText = "Blue";
+            dGV_cover.Columns[2].HeaderText = "Green";
+            dGV_cover.Columns[3].HeaderText = "Red";
+            dGV_cover.Columns[4].HeaderText = "Alpha";
+        }
+        void ResetDatagrid_Stego()
+        {
+            dGV_stego.DataSource = null; //Reset
+
+            dGV_stego.DataSource = data_stego;
+            dGV_stego.Columns[0].HeaderText = "(X,Y)";
+            dGV_stego.Columns[1].HeaderText = "Blue";
+            dGV_stego.Columns[2].HeaderText = "Green";
+            dGV_stego.Columns[3].HeaderText = "Red";
+            dGV_stego.Columns[4].HeaderText = "Alpha";
+        }
+        #endregion
+
+        #region for Data Binding Pixel Lookup
+        public class BGRA_Cover
+        {
+            public string XY_Cover { get; set; }
+            public string B_Cover { get; set; }
+            public string G_Cover { get; set; }
+            public string R_Cover { get; set; }
+            public string A_Cover { get; set; }
+        }
+
+        public class BGRA_Stego
+        {
+            public string XY_Stego { get; set; }
+            public string B_Stego { get; set; }
+            public string G_Stego { get; set; }
+            public string R_Stego { get; set; }
+            public string A_Stego { get; set; }
+        }
         #endregion
 
         #region Event Handler Tbox Publik dan Privat
@@ -351,33 +524,21 @@ namespace WindowsFormsApplication1
                 e.Handled = true;
             }
         }
+        private void tbox_X_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+            {
+                e.Handled = true;
+            }
+        }
+        private void tbox_Y_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+            {
+                e.Handled = true;
+            }
+        }
         #endregion
-
-
-        private void btn_cover_Click(object sender, EventArgs e)
-        {
-            Bitmap bmp;
-            byte[] argb;
-            opfile = new OpenFileDialog();
-            opfile.Filter = Notifikasi.PNG;
-            if (opfile.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-            {
-                tbox_path_cover.Text = opfile.FileName;
-                bmp = new Bitmap(opfile.FileName);
-                argb = EX.ProsesGetARGB(bmp);
-                EX.SplitArgbPixel(argb);
-            }
-        }
-
-        private void btn_stego_Click(object sender, EventArgs e)
-        {
-            opfile = new OpenFileDialog();
-            opfile.Filter = Notifikasi.PNG;
-            if (opfile.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-            {
-                tbox_path_stego.Text = opfile.FileName;
-            }
-        }
 
     }
 

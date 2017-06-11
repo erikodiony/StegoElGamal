@@ -23,6 +23,8 @@ namespace WindowsFormsApplication1
         public static readonly string Err_InputKunci_Publik = "Nilai (P) Harus > 255 !";
         public static readonly string Err_InputKunci_Publik2 = "Nilai (P) bukan Bilangan Prima !";
         public static readonly string Err_InputKunci_Privat = "Nilai (X) harus memenuhi (1 < x <= p-2) !";
+        public static readonly string Err_Input_Xval = "Nilai (X) kurang dari 0 atau melebihi ukuran panjang Gambar";
+        public static readonly string Err_Input_Yval = "Nilai (Y) kurang dari 0 atau melebihi ukuran lebar Gambar"; 
         public static readonly string Title_Err = "Error";
         public static readonly string Title_Success = "Success";
         public static readonly string TXT = "Text Files (File Teks) |*.txt";
@@ -324,22 +326,53 @@ namespace WindowsFormsApplication1
         #endregion
 
         #region Proses Pixel Lookup
-        public List<byte> a_val = new List<byte>();
-        public List<byte> r_val = new List<byte>();
-        public List<byte> g_val = new List<byte>();
-        public List<byte> b_val = new List<byte>();
+        public byte[] nilai_b;
+        public byte[] nilai_g;
+        public byte[] nilai_r;
+        public byte[] nilai_a;
+        public string[] nilai_xy;
 
-        public void SplitArgbPixel(byte[] argb)
+        List<byte> a_val = new List<byte>();
+        List<byte> r_val = new List<byte>();
+        List<byte> g_val = new List<byte>();
+        List<byte> b_val = new List<byte>();
+        List<string> xy_val = new List<string>();            
+
+        public void SplitArgbPixel(byte[] argb, Bitmap bmp)
         {
-            for (int i = 0; i < argb.Length / 4; i++)
+            b_val.Clear();
+            g_val.Clear();
+            r_val.Clear();
+            a_val.Clear();
+            xy_val.Clear();
+
+            for (int i = 0; i < argb.Length; i++)
             {
                 b_val.Add(argb[i]);
                 g_val.Add(argb[i+1]);
                 r_val.Add(argb[i+2]);
                 a_val.Add(argb[i+3]);
                 i = i+3;
+                //System.Diagnostics.Debug.WriteLine(i);
             }
+
+            for (int y = 0; y < bmp.Height; y++)
+            {
+                for (int x = 0; x < bmp.Width; x++)
+                {
+                    xy_val.Add(String.Format("({0},{1})", x + 1, y + 1));
+                }
+            }
+
+            nilai_b = b_val.ToArray();
+            nilai_g = g_val.ToArray();
+            nilai_r = r_val.ToArray();
+            nilai_a = a_val.ToArray();
+            nilai_xy = xy_val.ToArray();
         }
+
+
+
 
         #endregion
 

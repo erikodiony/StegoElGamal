@@ -72,12 +72,26 @@
             this.loaddek = new System.Windows.Forms.Button();
             this.eksdek = new System.Windows.Forms.Button();
             this.tabPage5 = new System.Windows.Forms.TabPage();
-            this.btn_stego = new System.Windows.Forms.Button();
-            this.btn_cover = new System.Windows.Forms.Button();
-            this.dataGridView2 = new System.Windows.Forms.DataGridView();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.groupBox7 = new System.Windows.Forms.GroupBox();
             this.tbox_path_cover = new System.Windows.Forms.TextBox();
+            this.btn_cover = new System.Windows.Forms.Button();
+            this.dGV_cover = new System.Windows.Forms.DataGridView();
+            this.groupBox8 = new System.Windows.Forms.GroupBox();
             this.tbox_path_stego = new System.Windows.Forms.TextBox();
+            this.btn_stego = new System.Windows.Forms.Button();
+            this.dGV_stego = new System.Windows.Forms.DataGridView();
+            this.groupBox9 = new System.Windows.Forms.GroupBox();
+            this.label_dimensi_cover = new System.Windows.Forms.Label();
+            this.label_dimensi_stego = new System.Windows.Forms.Label();
+            this.tbox_X = new System.Windows.Forms.TextBox();
+            this.tbox_Y = new System.Windows.Forms.TextBox();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
+            this.btn_TampilPixel = new System.Windows.Forms.Button();
+            this.label_sampel_cover = new System.Windows.Forms.Label();
+            this.label_sampel_stego = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.tabPage3.SuspendLayout();
             this.groupBox5.SuspendLayout();
@@ -92,8 +106,11 @@
             this.groupBox4.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.tabPage5.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            this.groupBox7.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dGV_cover)).BeginInit();
+            this.groupBox8.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dGV_stego)).BeginInit();
+            this.groupBox9.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -530,12 +547,9 @@
             // 
             // tabPage5
             // 
-            this.tabPage5.Controls.Add(this.tbox_path_stego);
-            this.tabPage5.Controls.Add(this.tbox_path_cover);
-            this.tabPage5.Controls.Add(this.btn_stego);
-            this.tabPage5.Controls.Add(this.btn_cover);
-            this.tabPage5.Controls.Add(this.dataGridView2);
-            this.tabPage5.Controls.Add(this.dataGridView1);
+            this.tabPage5.Controls.Add(this.groupBox9);
+            this.tabPage5.Controls.Add(this.groupBox8);
+            this.tabPage5.Controls.Add(this.groupBox7);
             this.tabPage5.Location = new System.Drawing.Point(4, 22);
             this.tabPage5.Name = "tabPage5";
             this.tabPage5.Size = new System.Drawing.Size(731, 430);
@@ -543,57 +557,220 @@
             this.tabPage5.Text = "Lookup Pixel";
             this.tabPage5.UseVisualStyleBackColor = true;
             // 
-            // btn_stego
+            // groupBox7
             // 
-            this.btn_stego.Location = new System.Drawing.Point(594, 74);
-            this.btn_stego.Name = "btn_stego";
-            this.btn_stego.Size = new System.Drawing.Size(75, 23);
-            this.btn_stego.TabIndex = 5;
-            this.btn_stego.Text = "Stego Image";
-            this.btn_stego.UseVisualStyleBackColor = true;
-            this.btn_stego.Click += new System.EventHandler(this.btn_stego_Click);
-            // 
-            // btn_cover
-            // 
-            this.btn_cover.Location = new System.Drawing.Point(274, 71);
-            this.btn_cover.Name = "btn_cover";
-            this.btn_cover.Size = new System.Drawing.Size(75, 23);
-            this.btn_cover.TabIndex = 2;
-            this.btn_cover.Text = "Cover Image";
-            this.btn_cover.UseVisualStyleBackColor = true;
-            this.btn_cover.Click += new System.EventHandler(this.btn_cover_Click);
-            // 
-            // dataGridView2
-            // 
-            this.dataGridView2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView2.Location = new System.Drawing.Point(377, 122);
-            this.dataGridView2.Name = "dataGridView2";
-            this.dataGridView2.Size = new System.Drawing.Size(292, 191);
-            this.dataGridView2.TabIndex = 1;
-            // 
-            // dataGridView1
-            // 
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(56, 122);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(293, 191);
-            this.dataGridView1.TabIndex = 0;
+            this.groupBox7.Controls.Add(this.label_sampel_cover);
+            this.groupBox7.Controls.Add(this.tbox_path_cover);
+            this.groupBox7.Controls.Add(this.btn_cover);
+            this.groupBox7.Controls.Add(this.dGV_cover);
+            this.groupBox7.Location = new System.Drawing.Point(17, 36);
+            this.groupBox7.Name = "groupBox7";
+            this.groupBox7.Size = new System.Drawing.Size(340, 297);
+            this.groupBox7.TabIndex = 8;
+            this.groupBox7.TabStop = false;
+            this.groupBox7.Text = "Gambar Cover";
             // 
             // tbox_path_cover
             // 
-            this.tbox_path_cover.Location = new System.Drawing.Point(56, 71);
+            this.tbox_path_cover.Location = new System.Drawing.Point(21, 33);
             this.tbox_path_cover.Name = "tbox_path_cover";
             this.tbox_path_cover.ReadOnly = true;
-            this.tbox_path_cover.Size = new System.Drawing.Size(212, 20);
-            this.tbox_path_cover.TabIndex = 6;
+            this.tbox_path_cover.Size = new System.Drawing.Size(200, 20);
+            this.tbox_path_cover.TabIndex = 9;
+            // 
+            // btn_cover
+            // 
+            this.btn_cover.Location = new System.Drawing.Point(227, 33);
+            this.btn_cover.Name = "btn_cover";
+            this.btn_cover.Size = new System.Drawing.Size(92, 23);
+            this.btn_cover.TabIndex = 8;
+            this.btn_cover.Text = "Gambar Cover";
+            this.btn_cover.UseVisualStyleBackColor = true;
+            this.btn_cover.Click += new System.EventHandler(this.btn_cover_Click);
+            // 
+            // dGV_cover
+            // 
+            this.dGV_cover.AllowUserToAddRows = false;
+            this.dGV_cover.AllowUserToDeleteRows = false;
+            this.dGV_cover.AllowUserToResizeColumns = false;
+            this.dGV_cover.AllowUserToResizeRows = false;
+            this.dGV_cover.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.ColumnHeader;
+            this.dGV_cover.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dGV_cover.Location = new System.Drawing.Point(21, 84);
+            this.dGV_cover.Name = "dGV_cover";
+            this.dGV_cover.ReadOnly = true;
+            this.dGV_cover.RowHeadersVisible = false;
+            this.dGV_cover.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders;
+            this.dGV_cover.Size = new System.Drawing.Size(298, 191);
+            this.dGV_cover.TabIndex = 7;
+            // 
+            // groupBox8
+            // 
+            this.groupBox8.Controls.Add(this.label_sampel_stego);
+            this.groupBox8.Controls.Add(this.tbox_path_stego);
+            this.groupBox8.Controls.Add(this.btn_stego);
+            this.groupBox8.Controls.Add(this.dGV_stego);
+            this.groupBox8.Location = new System.Drawing.Point(373, 36);
+            this.groupBox8.Name = "groupBox8";
+            this.groupBox8.Size = new System.Drawing.Size(340, 297);
+            this.groupBox8.TabIndex = 9;
+            this.groupBox8.TabStop = false;
+            this.groupBox8.Text = "Gambar Stego";
             // 
             // tbox_path_stego
             // 
-            this.tbox_path_stego.Location = new System.Drawing.Point(377, 76);
+            this.tbox_path_stego.Location = new System.Drawing.Point(21, 37);
             this.tbox_path_stego.Name = "tbox_path_stego";
             this.tbox_path_stego.ReadOnly = true;
-            this.tbox_path_stego.Size = new System.Drawing.Size(212, 20);
-            this.tbox_path_stego.TabIndex = 7;
+            this.tbox_path_stego.Size = new System.Drawing.Size(206, 20);
+            this.tbox_path_stego.TabIndex = 10;
+            // 
+            // btn_stego
+            // 
+            this.btn_stego.Location = new System.Drawing.Point(233, 35);
+            this.btn_stego.Name = "btn_stego";
+            this.btn_stego.Size = new System.Drawing.Size(86, 23);
+            this.btn_stego.TabIndex = 9;
+            this.btn_stego.Text = "Gambar Stego";
+            this.btn_stego.UseVisualStyleBackColor = true;
+            this.btn_stego.Click += new System.EventHandler(this.btn_stego_Click);
+            // 
+            // dGV_stego
+            // 
+            this.dGV_stego.AllowUserToAddRows = false;
+            this.dGV_stego.AllowUserToDeleteRows = false;
+            this.dGV_stego.AllowUserToResizeColumns = false;
+            this.dGV_stego.AllowUserToResizeRows = false;
+            this.dGV_stego.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.ColumnHeader;
+            this.dGV_stego.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dGV_stego.Location = new System.Drawing.Point(21, 83);
+            this.dGV_stego.Name = "dGV_stego";
+            this.dGV_stego.ReadOnly = true;
+            this.dGV_stego.RowHeadersVisible = false;
+            this.dGV_stego.Size = new System.Drawing.Size(298, 191);
+            this.dGV_stego.TabIndex = 8;
+            // 
+            // groupBox9
+            // 
+            this.groupBox9.Controls.Add(this.btn_TampilPixel);
+            this.groupBox9.Controls.Add(this.label10);
+            this.groupBox9.Controls.Add(this.label9);
+            this.groupBox9.Controls.Add(this.label8);
+            this.groupBox9.Controls.Add(this.label7);
+            this.groupBox9.Controls.Add(this.tbox_Y);
+            this.groupBox9.Controls.Add(this.tbox_X);
+            this.groupBox9.Controls.Add(this.label_dimensi_stego);
+            this.groupBox9.Controls.Add(this.label_dimensi_cover);
+            this.groupBox9.Location = new System.Drawing.Point(17, 339);
+            this.groupBox9.Name = "groupBox9";
+            this.groupBox9.Size = new System.Drawing.Size(696, 69);
+            this.groupBox9.TabIndex = 10;
+            this.groupBox9.TabStop = false;
+            this.groupBox9.Text = "Set Nilai Pixel";
+            // 
+            // label_dimensi_cover
+            // 
+            this.label_dimensi_cover.AutoSize = true;
+            this.label_dimensi_cover.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label_dimensi_cover.Location = new System.Drawing.Point(80, 20);
+            this.label_dimensi_cover.Name = "label_dimensi_cover";
+            this.label_dimensi_cover.Size = new System.Drawing.Size(103, 13);
+            this.label_dimensi_cover.TabIndex = 0;
+            this.label_dimensi_cover.Text = "Gambar Cover : -";
+            // 
+            // label_dimensi_stego
+            // 
+            this.label_dimensi_stego.AutoSize = true;
+            this.label_dimensi_stego.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label_dimensi_stego.Location = new System.Drawing.Point(80, 44);
+            this.label_dimensi_stego.Name = "label_dimensi_stego";
+            this.label_dimensi_stego.Size = new System.Drawing.Size(103, 13);
+            this.label_dimensi_stego.TabIndex = 1;
+            this.label_dimensi_stego.Text = "Gambar Stego : -";
+            // 
+            // tbox_X
+            // 
+            this.tbox_X.Location = new System.Drawing.Point(434, 14);
+            this.tbox_X.Name = "tbox_X";
+            this.tbox_X.Size = new System.Drawing.Size(100, 20);
+            this.tbox_X.TabIndex = 2;
+            this.tbox_X.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbox_X_KeyPress);
+            // 
+            // tbox_Y
+            // 
+            this.tbox_Y.Location = new System.Drawing.Point(434, 42);
+            this.tbox_Y.Name = "tbox_Y";
+            this.tbox_Y.Size = new System.Drawing.Size(100, 20);
+            this.tbox_Y.TabIndex = 3;
+            this.tbox_Y.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbox_Y_KeyPress);
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label7.Location = new System.Drawing.Point(18, 18);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(59, 13);
+            this.label7.TabIndex = 4;
+            this.label7.Text = "Dimensi :";
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label8.Location = new System.Drawing.Point(267, 16);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(135, 13);
+            this.label8.TabIndex = 5;
+            this.label8.Text = "Lihat Nilai Pixel (X,Y) :";
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label9.Location = new System.Drawing.Point(408, 18);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(23, 13);
+            this.label9.TabIndex = 6;
+            this.label9.Text = "X :";
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label10.Location = new System.Drawing.Point(408, 46);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(23, 13);
+            this.label10.TabIndex = 7;
+            this.label10.Text = "Y :";
+            // 
+            // btn_TampilPixel
+            // 
+            this.btn_TampilPixel.Location = new System.Drawing.Point(551, 14);
+            this.btn_TampilPixel.Name = "btn_TampilPixel";
+            this.btn_TampilPixel.Size = new System.Drawing.Size(91, 48);
+            this.btn_TampilPixel.TabIndex = 8;
+            this.btn_TampilPixel.Text = "Tampil";
+            this.btn_TampilPixel.UseVisualStyleBackColor = true;
+            this.btn_TampilPixel.Click += new System.EventHandler(this.btn_TampilPixel_Click);
+            // 
+            // label_sampel_cover
+            // 
+            this.label_sampel_cover.AutoSize = true;
+            this.label_sampel_cover.Location = new System.Drawing.Point(18, 68);
+            this.label_sampel_cover.Name = "label_sampel_cover";
+            this.label_sampel_cover.Size = new System.Drawing.Size(80, 13);
+            this.label_sampel_cover.TabIndex = 10;
+            this.label_sampel_cover.Text = "Sampel Data : -";
+            // 
+            // label_sampel_stego
+            // 
+            this.label_sampel_stego.AutoSize = true;
+            this.label_sampel_stego.Location = new System.Drawing.Point(18, 67);
+            this.label_sampel_stego.Name = "label_sampel_stego";
+            this.label_sampel_stego.Size = new System.Drawing.Size(80, 13);
+            this.label_sampel_stego.TabIndex = 11;
+            this.label_sampel_stego.Text = "Sampel Data : -";
             // 
             // Form1
             // 
@@ -626,9 +803,14 @@
             this.groupBox4.ResumeLayout(false);
             this.groupBox3.ResumeLayout(false);
             this.tabPage5.ResumeLayout(false);
-            this.tabPage5.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            this.groupBox7.ResumeLayout(false);
+            this.groupBox7.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dGV_cover)).EndInit();
+            this.groupBox8.ResumeLayout(false);
+            this.groupBox8.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dGV_stego)).EndInit();
+            this.groupBox9.ResumeLayout(false);
+            this.groupBox9.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -659,10 +841,6 @@
         private System.Windows.Forms.Button loaddek;
         private System.Windows.Forms.Button eksdek;
         private System.Windows.Forms.TabPage tabPage5;
-        private System.Windows.Forms.DataGridView dataGridView1;
-        private System.Windows.Forms.Button btn_cover;
-        private System.Windows.Forms.DataGridView dataGridView2;
-        private System.Windows.Forms.Button btn_stego;
         private System.Windows.Forms.RichTextBox msgenk;
         private System.Windows.Forms.RichTextBox msgdek;
         private System.Windows.Forms.Button saveenk;
@@ -683,8 +861,26 @@
         private System.Windows.Forms.TextBox tbox_pub_dek;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.GroupBox groupBox9;
+        private System.Windows.Forms.GroupBox groupBox8;
         private System.Windows.Forms.TextBox tbox_path_stego;
+        private System.Windows.Forms.Button btn_stego;
+        private System.Windows.Forms.DataGridView dGV_stego;
+        private System.Windows.Forms.GroupBox groupBox7;
         private System.Windows.Forms.TextBox tbox_path_cover;
+        private System.Windows.Forms.Button btn_cover;
+        private System.Windows.Forms.DataGridView dGV_cover;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.TextBox tbox_Y;
+        private System.Windows.Forms.TextBox tbox_X;
+        private System.Windows.Forms.Label label_dimensi_stego;
+        private System.Windows.Forms.Label label_dimensi_cover;
+        private System.Windows.Forms.Button btn_TampilPixel;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Label label_sampel_stego;
+        private System.Windows.Forms.Label label_sampel_cover;
     }
 }
 
