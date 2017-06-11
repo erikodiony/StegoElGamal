@@ -32,6 +32,7 @@ namespace WindowsFormsApplication1
     }
     class Eksekusi
     {
+        #region Variabel
         ElGamal EL = new ElGamal();
 
         public int[] dataReadMeta;
@@ -39,6 +40,7 @@ namespace WindowsFormsApplication1
 
         public byte[] passwd_rahasia;
         public byte[] data_rahasia;
+        #endregion
 
         #region Proses Validasi Input
         public string Cek_Tbox_2Kolom(string pathExt, string passwd)
@@ -330,21 +332,15 @@ namespace WindowsFormsApplication1
         public byte[] nilai_g;
         public byte[] nilai_r;
         public byte[] nilai_a;
-        public string[] nilai_xy;
-
-        List<byte> a_val = new List<byte>();
-        List<byte> r_val = new List<byte>();
-        List<byte> g_val = new List<byte>();
-        List<byte> b_val = new List<byte>();
-        List<string> xy_val = new List<string>();            
+        public string[] nilai_xy;          
 
         public void SplitArgbPixel(byte[] argb, Bitmap bmp)
         {
-            b_val.Clear();
-            g_val.Clear();
-            r_val.Clear();
-            a_val.Clear();
-            xy_val.Clear();
+            List<byte> a_val = new List<byte>();
+            List<byte> r_val = new List<byte>();
+            List<byte> g_val = new List<byte>();
+            List<byte> b_val = new List<byte>();
+            List<string> xy_val = new List<string>();  
 
             for (int i = 0; i < argb.Length; i++)
             {
@@ -370,10 +366,6 @@ namespace WindowsFormsApplication1
             nilai_a = a_val.ToArray();
             nilai_xy = xy_val.ToArray();
         }
-
-
-
-
         #endregion
 
     }

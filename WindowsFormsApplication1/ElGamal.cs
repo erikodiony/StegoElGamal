@@ -37,7 +37,6 @@ namespace WindowsFormsApplication1
             int[] val = Array.ConvertAll(ascii, x => (int)x);           
             return val;
         }
-
         public int GetNilai_G(int p)
         {
             int val;
@@ -45,14 +44,12 @@ namespace WindowsFormsApplication1
             val = rd.Next(1, p - 1);
             return val;
         }
-
         public int GetNilai_Y(BigInteger p, BigInteger g, BigInteger x)
         {
             int val;
             val = (int)BigInteger.ModPow(g, x, p);
             return val;
         }
-
         public int[] GetNilai_K(string msg, BigInteger p)
         {
             int[] val = new int[msg.Length];
@@ -65,7 +62,6 @@ namespace WindowsFormsApplication1
             }
             return val;
         }
-
         public int[] GetNilai_Gamma(int g, int[] k, int p)
         {
             int[] val = new int[k.Length];
@@ -75,7 +71,6 @@ namespace WindowsFormsApplication1
             }
             return val;
         }
-
         public int[] GetNilai_Delta(int y, int[] k, int p, int[] msg)
         {
             int[] val = new int[msg.Length];
@@ -85,7 +80,6 @@ namespace WindowsFormsApplication1
             }
                 return val;
         }
-
         public string[] Gabungan_NilaiGamma_NilaiDelta(int[] gamma, int[] delta)
         {
             string[] val = new string[gamma.Length * 2];
@@ -125,7 +119,6 @@ namespace WindowsFormsApplication1
                 }
             }            
         }
-
         public string Proses_Get_Message(List<int> gamma_list, List<int> delta_list, int p, int x)
         {
             int[] gamma = gamma_list.ToArray();

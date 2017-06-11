@@ -22,6 +22,7 @@ namespace WindowsFormsApplication1
             InitializeComponent();
         }
 
+        #region Variabel
         string getPathTeks;
         string getPathImg;
         string getPathImg2; 
@@ -48,6 +49,7 @@ namespace WindowsFormsApplication1
         OpenFileDialog opfile;
         SaveFileDialog svfile;
         DialogResult dlg;
+        #endregion
 
         #region Proses Enkripsi
         private void loadenk_Click(object sender, EventArgs e)
