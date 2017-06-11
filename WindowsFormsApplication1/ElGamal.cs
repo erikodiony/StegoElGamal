@@ -8,6 +8,7 @@ namespace WindowsFormsApplication1
 {
     class ElGamal
     {
+
         #region Proses Cek Input
         public bool cekPrima(string angka)
         {
@@ -81,7 +82,6 @@ namespace WindowsFormsApplication1
             for (int i = 0; i < msg.Length; i++)
             {
                 val[i] = (int)((BigInteger.Pow((BigInteger)y, (int)k[i]) * (BigInteger)msg[i]) % (BigInteger)p);
-                //val[i] = (int)BigInteger.po                
             }
                 return val;
         }
@@ -110,6 +110,9 @@ namespace WindowsFormsApplication1
             msg_arr = msg.Split(' ');
             Array.Resize(ref msg_arr, msg_arr.Length - 1); //Hapus "Spasi" pada akhir Array;
 
+            gamma_cipher.Clear();
+            delta_cipher.Clear();
+
             for (int i = 0; i < msg_arr.Length; i++)
             {
                 if (i % 2 == 0)
@@ -134,17 +137,10 @@ namespace WindowsFormsApplication1
             {
                 val_byte[i] = (byte)((delta[i] * (BigInteger.Pow((BigInteger)gamma[i], (int)(p - 1 - x)))) % p);
             }
-
-            foreach(var c in val_byte)
-            {
-                System.Diagnostics.Debug.WriteLine(c);
-            }
-
             val = System.Text.Encoding.ASCII.GetString(val_byte);
             return val;
         }
         #endregion
-
 
     }
 }

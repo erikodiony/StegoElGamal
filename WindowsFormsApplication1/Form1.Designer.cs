@@ -72,10 +72,12 @@
             this.loaddek = new System.Windows.Forms.Button();
             this.eksdek = new System.Windows.Forms.Button();
             this.tabPage5 = new System.Windows.Forms.TabPage();
-            this.button11 = new System.Windows.Forms.Button();
-            this.button10 = new System.Windows.Forms.Button();
+            this.btn_stego = new System.Windows.Forms.Button();
+            this.btn_cover = new System.Windows.Forms.Button();
             this.dataGridView2 = new System.Windows.Forms.DataGridView();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.tbox_path_cover = new System.Windows.Forms.TextBox();
+            this.tbox_path_stego = new System.Windows.Forms.TextBox();
             this.tabControl1.SuspendLayout();
             this.tabPage3.SuspendLayout();
             this.groupBox5.SuspendLayout();
@@ -142,6 +144,7 @@
             this.tbox_pri_enk.Name = "tbox_pri_enk";
             this.tbox_pri_enk.Size = new System.Drawing.Size(38, 20);
             this.tbox_pri_enk.TabIndex = 3;
+            this.tbox_pri_enk.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbox_pri_enk_KeyPress);
             // 
             // tbox_pub_enk
             // 
@@ -149,6 +152,7 @@
             this.tbox_pub_enk.Name = "tbox_pub_enk";
             this.tbox_pub_enk.Size = new System.Drawing.Size(38, 20);
             this.tbox_pub_enk.TabIndex = 2;
+            this.tbox_pub_enk.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbox_pub_enk_KeyPress);
             // 
             // label2
             // 
@@ -420,6 +424,7 @@
             this.tbox_pri_dek.Name = "tbox_pri_dek";
             this.tbox_pri_dek.Size = new System.Drawing.Size(38, 20);
             this.tbox_pri_dek.TabIndex = 3;
+            this.tbox_pri_dek.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbox_pri_dek_KeyPress);
             // 
             // tbox_pub_dek
             // 
@@ -427,6 +432,7 @@
             this.tbox_pub_dek.Name = "tbox_pub_dek";
             this.tbox_pub_dek.Size = new System.Drawing.Size(38, 20);
             this.tbox_pub_dek.TabIndex = 2;
+            this.tbox_pub_dek.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbox_pub_dek_KeyPress);
             // 
             // label3
             // 
@@ -524,8 +530,10 @@
             // 
             // tabPage5
             // 
-            this.tabPage5.Controls.Add(this.button11);
-            this.tabPage5.Controls.Add(this.button10);
+            this.tabPage5.Controls.Add(this.tbox_path_stego);
+            this.tabPage5.Controls.Add(this.tbox_path_cover);
+            this.tabPage5.Controls.Add(this.btn_stego);
+            this.tabPage5.Controls.Add(this.btn_cover);
             this.tabPage5.Controls.Add(this.dataGridView2);
             this.tabPage5.Controls.Add(this.dataGridView1);
             this.tabPage5.Location = new System.Drawing.Point(4, 22);
@@ -535,23 +543,25 @@
             this.tabPage5.Text = "Lookup Pixel";
             this.tabPage5.UseVisualStyleBackColor = true;
             // 
-            // button11
+            // btn_stego
             // 
-            this.button11.Location = new System.Drawing.Point(594, 74);
-            this.button11.Name = "button11";
-            this.button11.Size = new System.Drawing.Size(75, 23);
-            this.button11.TabIndex = 5;
-            this.button11.Text = "button11";
-            this.button11.UseVisualStyleBackColor = true;
+            this.btn_stego.Location = new System.Drawing.Point(594, 74);
+            this.btn_stego.Name = "btn_stego";
+            this.btn_stego.Size = new System.Drawing.Size(75, 23);
+            this.btn_stego.TabIndex = 5;
+            this.btn_stego.Text = "Stego Image";
+            this.btn_stego.UseVisualStyleBackColor = true;
+            this.btn_stego.Click += new System.EventHandler(this.btn_stego_Click);
             // 
-            // button10
+            // btn_cover
             // 
-            this.button10.Location = new System.Drawing.Point(274, 71);
-            this.button10.Name = "button10";
-            this.button10.Size = new System.Drawing.Size(75, 23);
-            this.button10.TabIndex = 2;
-            this.button10.Text = "button10";
-            this.button10.UseVisualStyleBackColor = true;
+            this.btn_cover.Location = new System.Drawing.Point(274, 71);
+            this.btn_cover.Name = "btn_cover";
+            this.btn_cover.Size = new System.Drawing.Size(75, 23);
+            this.btn_cover.TabIndex = 2;
+            this.btn_cover.Text = "Cover Image";
+            this.btn_cover.UseVisualStyleBackColor = true;
+            this.btn_cover.Click += new System.EventHandler(this.btn_cover_Click);
             // 
             // dataGridView2
             // 
@@ -568,6 +578,22 @@
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.Size = new System.Drawing.Size(293, 191);
             this.dataGridView1.TabIndex = 0;
+            // 
+            // tbox_path_cover
+            // 
+            this.tbox_path_cover.Location = new System.Drawing.Point(56, 71);
+            this.tbox_path_cover.Name = "tbox_path_cover";
+            this.tbox_path_cover.ReadOnly = true;
+            this.tbox_path_cover.Size = new System.Drawing.Size(212, 20);
+            this.tbox_path_cover.TabIndex = 6;
+            // 
+            // tbox_path_stego
+            // 
+            this.tbox_path_stego.Location = new System.Drawing.Point(377, 76);
+            this.tbox_path_stego.Name = "tbox_path_stego";
+            this.tbox_path_stego.ReadOnly = true;
+            this.tbox_path_stego.Size = new System.Drawing.Size(212, 20);
+            this.tbox_path_stego.TabIndex = 7;
             // 
             // Form1
             // 
@@ -600,6 +626,7 @@
             this.groupBox4.ResumeLayout(false);
             this.groupBox3.ResumeLayout(false);
             this.tabPage5.ResumeLayout(false);
+            this.tabPage5.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
@@ -633,9 +660,9 @@
         private System.Windows.Forms.Button eksdek;
         private System.Windows.Forms.TabPage tabPage5;
         private System.Windows.Forms.DataGridView dataGridView1;
-        private System.Windows.Forms.Button button10;
+        private System.Windows.Forms.Button btn_cover;
         private System.Windows.Forms.DataGridView dataGridView2;
-        private System.Windows.Forms.Button button11;
+        private System.Windows.Forms.Button btn_stego;
         private System.Windows.Forms.RichTextBox msgenk;
         private System.Windows.Forms.RichTextBox msgdek;
         private System.Windows.Forms.Button saveenk;
@@ -656,6 +683,8 @@
         private System.Windows.Forms.TextBox tbox_pub_dek;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.TextBox tbox_path_stego;
+        private System.Windows.Forms.TextBox tbox_path_cover;
     }
 }
 

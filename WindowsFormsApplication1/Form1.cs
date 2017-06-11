@@ -51,9 +51,10 @@ namespace WindowsFormsApplication1
             opfile.Filter = Notifikasi.TXT;
             if (opfile.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
+                msgenk.Lines = null;
                 getPathTeks = opfile.FileName;
                 pathenk.Text = getPathTeks;
-                msgenk.Text = File.ReadAllText(getPathTeks);
+                msgenk.Lines = File.ReadAllLines(getPathTeks);
             }
         }
         private void saveenk_Click(object sender, EventArgs e)
@@ -177,9 +178,10 @@ namespace WindowsFormsApplication1
             opfile.Filter = Notifikasi.TXT;
             if (opfile.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
+                msgdek.Lines = null;
                 getPathTeks2 = opfile.FileName;
                 pathdek.Text = getPathTeks2;
-                msgdek.Text = File.ReadAllText(getPathTeks2);
+                msgdek.Lines = File.ReadAllLines(getPathTeks2);
             }
         }
         private void eksdek_Click(object sender, EventArgs e)
@@ -287,7 +289,6 @@ namespace WindowsFormsApplication1
             }
 
         }
-
         void ProsesValidasi_Dekripsi()
         {
             if (int.Parse(tbox_pub_dek.Text) < 255)
@@ -308,7 +309,6 @@ namespace WindowsFormsApplication1
                 msghsldek.Text = hasil_dekripsi;
             }
         }
-
         void ProsesTampilEnkripsi(string[] enkripsi)
         {
             StringBuilder builder = new StringBuilder();
@@ -320,20 +320,64 @@ namespace WindowsFormsApplication1
             hasil_enkripsi = builder.ToString();
             msghslenk.Text = hasil_enkripsi;
         }
-
         #endregion
 
-        #region Event Handler Tbox
-        private void tbox_pub_KeyPress(object sender, KeyPressEventArgs e)
+        #region Event Handler Tbox Publik dan Privat
+        private void tbox_pub_enk_KeyPress(object sender, KeyPressEventArgs e)
         {
-
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+            {
+                e.Handled = true;
+            }
         }
-        private void tbox_priv_KeyPress(object sender, KeyPressEventArgs e)
+        private void tbox_pri_enk_KeyPress(object sender, KeyPressEventArgs e)
         {
-
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+            {
+                e.Handled = true;
+            }
+        }
+        private void tbox_pub_dek_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+            {
+                e.Handled = true;
+            }
+        }
+        private void tbox_pri_dek_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+            {
+                e.Handled = true;
+            }
         }
         #endregion
 
+
+        private void btn_cover_Click(object sender, EventArgs e)
+        {
+            Bitmap bmp;
+            byte[] argb;
+            opfile = new OpenFileDialog();
+            opfile.Filter = Notifikasi.PNG;
+            if (opfile.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                tbox_path_cover.Text = opfile.FileName;
+                bmp = new Bitmap(opfile.FileName);
+                argb = EX.ProsesGetARGB(bmp);
+                EX.SplitArgbPixel(argb);
+            }
+        }
+
+        private void btn_stego_Click(object sender, EventArgs e)
+        {
+            opfile = new OpenFileDialog();
+            opfile.Filter = Notifikasi.PNG;
+            if (opfile.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                tbox_path_stego.Text = opfile.FileName;
+            }
+        }
 
     }
 

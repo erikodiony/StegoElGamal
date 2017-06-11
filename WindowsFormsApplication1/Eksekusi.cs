@@ -26,7 +26,7 @@ namespace WindowsFormsApplication1
         public static readonly string Title_Err = "Error";
         public static readonly string Title_Success = "Success";
         public static readonly string TXT = "Text Files (File Teks) |*.txt";
-        public static readonly string PNG = "Image Files (Cover Image) |*.png";        
+        public static readonly string PNG = "Image Files (File Image) |*.png";        
     }
     class Eksekusi
     {
@@ -286,6 +286,7 @@ namespace WindowsFormsApplication1
         }
         #endregion
 
+        #region Proses Enkripsi
         public string[] ProsesEnkripsi(string msg, int nilaiP, int nilaiX)
         {
             int nilai_P = nilaiP;
@@ -310,7 +311,9 @@ namespace WindowsFormsApplication1
 
             return hasil_enkripsi;
         }
+        #endregion
 
+        #region Proses Dekripsi
         public string ProsesDekripsi(string msg, int nilaiP, int nilaiX)
         {
             string hasil_dekripsi;
@@ -318,7 +321,27 @@ namespace WindowsFormsApplication1
             hasil_dekripsi = EL.Proses_Get_Message(EL.gamma_cipher, EL.delta_cipher, nilaiP, nilaiX);
             return hasil_dekripsi;
         }
+        #endregion
 
+        #region Proses Pixel Lookup
+        public List<byte> a_val = new List<byte>();
+        public List<byte> r_val = new List<byte>();
+        public List<byte> g_val = new List<byte>();
+        public List<byte> b_val = new List<byte>();
+
+        public void SplitArgbPixel(byte[] argb)
+        {
+            for (int i = 0; i < argb.Length / 4; i++)
+            {
+                b_val.Add(argb[i]);
+                g_val.Add(argb[i+1]);
+                r_val.Add(argb[i+2]);
+                a_val.Add(argb[i+3]);
+                i = i+3;
+            }
+        }
+
+        #endregion
 
     }
 }
